@@ -9,6 +9,7 @@ import MainFeed2 from "./MainFeed2";
 const GetPosts = (props) => {
   const token =
     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
+
   const [posts, setPosts] = useState([]);
   const [quickRead, setQuickRead] = useState(false);
 

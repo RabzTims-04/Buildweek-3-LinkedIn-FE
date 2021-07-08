@@ -25,7 +25,7 @@ const MainFeed = ({post}) => {
   // function to edit post
 
   function EditPost() {
-    if (post.user._id === "60c8aef9a3a3d700151cb054") {
+    if (post.user._id === "60af83bbbe9b150015506e18") {
       setEdited(!edited);
     } else {
       alert("You can't Edit someone's post!!!");
@@ -71,7 +71,7 @@ const MainFeed = ({post}) => {
     console.log("Delete the post", post._id);
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    if (post.user._id === "60c8aef9a3a3d700151cb054") {
+    if (post.user._id === "60af83bbbe9b150015506e18") {
       try {
         console.log(
           `https://striveschool-api.herokuapp.com/api/posts/${post._id}`
