@@ -1,14 +1,15 @@
-import { Component } from "react";
-import { Modal, Form, Row, Col, Button } from "react-bootstrap";
+import {Component} from "react";
+import {Modal, Form, Row, Col, Button} from "react-bootstrap";
 
 export default class ProfileAboutUpdater extends Component {
-  state = { user: {} };
+  state = {user: {}};
 
   handleProfileUpdate = async (e) => {
     // const userId = "60c73bf1291930001560aba3";
     const endpointPUTprofile = `https://striveschool-api.herokuapp.com/api/profile/`;
-    const bearerTokenHedri =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM3M2JmMTI5MTkzMDAwMTU2MGFiYTMiLCJpYXQiOjE2MjM2Njk3NDUsImV4cCI6MTYyNDg3OTM0NX0.Lk5Z-l56SBkY6YCIvoiHpVg_0J0rEZHaO4PzAuep3bo";
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
+    const bearerTokenHedri = `Bearer ${token}`;
 
     try {
       let response = await fetch(endpointPUTprofile, {
@@ -39,7 +40,7 @@ export default class ProfileAboutUpdater extends Component {
   inputChange = (e) => {
     let id = e.target.id;
     this.setState({
-      user: { ...this.state.user, [id]: e.target.value },
+      user: {...this.state.user, [id]: e.target.value},
     });
   };
 

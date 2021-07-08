@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { Modal, Form, Row, Col, Button } from "react-bootstrap";
+import {Component} from "react";
+import {Modal, Form, Row, Col, Button} from "react-bootstrap";
 
 export default class ProfileExpUpdater extends Component {
   state = {
@@ -20,8 +20,9 @@ export default class ProfileExpUpdater extends Component {
     let expId = this.props.idExp;
     const userId = "60c73bf1291930001560aba3";
     const endpointPUTExp = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`;
-    const bearerTokenHedri =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM4YWVmOWEzYTNkNzAwMTUxY2IwNTQiLCJpYXQiOjE2MjM3NjQ3MjksImV4cCI6MTYyNDk3NDMyOX0.Y_86hS0H_3nodj7yLyRmp7q1ATdiHj_4FURWkrzM82I";
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
+    const bearerTokenHedri = `Bearer ${token}`;
     try {
       let response = await fetch(endpointPUTExp, {
         method: "PUT",
@@ -63,8 +64,9 @@ export default class ProfileExpUpdater extends Component {
     let expId = this.props.idExp;
     const userId = "60c73bf1291930001560aba3";
     const endpointDELETEexp = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`;
-    const bearerTokenHedri =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM4YWVmOWEzYTNkNzAwMTUxY2IwNTQiLCJpYXQiOjE2MjM3NjQ3MjksImV4cCI6MTYyNDk3NDMyOX0.Y_86hS0H_3nodj7yLyRmp7q1ATdiHj_4FURWkrzM82I";
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
+    const bearerTokenHedri = `Bearer ${token}`;
     try {
       let response = await fetch(endpointDELETEexp, {
         method: "DELETE",
@@ -102,13 +104,12 @@ export default class ProfileExpUpdater extends Component {
   inputChange = (e) => {
     let id = e.target.id;
     this.setState({
-      experience: { ...this.state.experience, [id]: e.target.value },
+      experience: {...this.state.experience, [id]: e.target.value},
     });
   };
 
   render() {
-    const { company, role, area, startDate, description } =
-      this.state.experience;
+    const {company, role, area, startDate, description} = this.state.experience;
 
     console.log("This post id:", this.props.idExp);
     return (

@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { Card, Image, Nav } from "react-bootstrap";
-import { Pencil } from "react-bootstrap-icons";
+import React, {Component} from "react";
+import {Card, Image, Nav} from "react-bootstrap";
+import {Pencil} from "react-bootstrap-icons";
 
 import ProfileAboutUpdater from "./AboutProfileUpdater";
 import "../ProfilePage.css";
-import { withRouter } from "react-router";
+import {withRouter} from "react-router";
 class ProfileAbout extends Component {
   state = {
     showModalAbout: false,
   };
   closeAboutModal = () => {
-    this.setState({ showModalAbout: false });
+    this.setState({showModalAbout: false});
   };
   render() {
     return (
@@ -21,7 +21,7 @@ class ProfileAbout extends Component {
             {this.props.match.params.id === "me" ? (
               <Pencil
                 id="pencil-icon"
-                onClick={() => this.setState({ showModalAbout: true })}
+                onClick={() => this.setState({showModalAbout: true})}
               />
             ) : (
               <></>

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Col, Row, Container, Form } from "react-bootstrap";
+import React, {Component} from "react";
+import {Col, Row, Container, Form} from "react-bootstrap";
 // import MainFeed from "./MainFeed/MainFeed";
 import SidebarLeftMain from "./SidebarLeft/SidebarLeftMain";
 import "./SidebarLeft/SidebarLeft.css";
@@ -10,6 +10,8 @@ import GetPosts from "../HomePage/MainFeed/GetPosts";
 import "./HomePage.css";
 import NetworkFeed from "../Network/NetworkFeed";
 
+// 8/7/21 Bearer token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc
+
 export default class HomePage extends Component {
   state = {
     user: {},
@@ -19,10 +21,11 @@ export default class HomePage extends Component {
   };
 
   componentDidMount = async () => {
-    this.setState({ isLoading: true });
+    this.setState({isLoading: true});
     try {
-      const bearerTokenHedri =
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM4YWVmOWEzYTNkNzAwMTUxY2IwNTQiLCJpYXQiOjE2MjM3NjQ3MjksImV4cCI6MTYyNDk3NDMyOX0.Y_86hS0H_3nodj7yLyRmp7q1ATdiHj_4FURWkrzM82I";
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
+      const bearerTokenHedri = `Bearer ${token}`;
 
       const response = await fetch(
         `https://striveschool-api.herokuapp.com/api/profile/me`,
@@ -35,7 +38,7 @@ export default class HomePage extends Component {
       if (response.ok) {
         const data = await response.json();
         console.log("This is sidebar profile data", data);
-        this.setState({ user: data, isLoading: false });
+        this.setState({user: data, isLoading: false});
       }
     } catch (error) {
       console.log(error);
@@ -43,7 +46,7 @@ export default class HomePage extends Component {
   };
 
   render() {
-    const { user, isLoading } = this.state;
+    const {user, isLoading} = this.state;
     return (
       <div
         className="linkedin-page"

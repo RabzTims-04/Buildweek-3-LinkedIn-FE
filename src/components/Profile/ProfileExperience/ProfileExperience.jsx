@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { Card, Col, Row, Image } from "react-bootstrap";
-import { Plus } from "react-bootstrap-icons";
+import React, {Component} from "react";
+import {Card, Col, Row, Image} from "react-bootstrap";
+import {Plus} from "react-bootstrap-icons";
 import "../ProfilePage.css";
 import ProfileExperienceSingle from "./ProfileExperienceSingle";
 import ProfileExperiencePost from "./ProfileExperiencePost";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 class ProfileExperience extends Component {
   state = {
     selected: null,
@@ -13,7 +13,7 @@ class ProfileExperience extends Component {
   };
 
   closeExpModalPost = () => {
-    this.setState({ showModalExpPost: false });
+    this.setState({showModalExpPost: false});
   };
   componentDidMount = async () => {
     const userId =
@@ -21,8 +21,9 @@ class ProfileExperience extends Component {
         ? "60c8aef9a3a3d700151cb054"
         : this.props.match.params.id;
     const endpointGetMyProfile = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`;
-    const bearerTokenHedri =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM4YWVmOWEzYTNkNzAwMTUxY2IwNTQiLCJpYXQiOjE2MjM3NjQ3MjksImV4cCI6MTYyNDk3NDMyOX0.Y_86hS0H_3nodj7yLyRmp7q1ATdiHj_4FURWkrzM82I";
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
+    const bearerTokenHedri = `Bearer ${token}`;
     try {
       let getResponse = await fetch(endpointGetMyProfile, {
         headers: {
@@ -33,14 +34,14 @@ class ProfileExperience extends Component {
 
       let myExpData = await getResponse.json();
       console.log("myExperience", myExpData);
-      this.setState({ experience: myExpData });
+      this.setState({experience: myExpData});
     } catch (err) {
       console.log(err);
     }
   };
 
   render() {
-    const { experience, selected } = this.state;
+    const {experience, selected} = this.state;
     return (
       <>
         <Card className="my-2" id="expProfile">
@@ -49,7 +50,7 @@ class ProfileExperience extends Component {
             {this.props.match.params.id === "me" ? (
               <Plus
                 id="pencil-icon"
-                onClick={() => this.setState({ showModalExpPost: true })}
+                onClick={() => this.setState({showModalExpPost: true})}
               />
             ) : (
               <></>

@@ -1,8 +1,8 @@
-import { Component } from "react";
-import { Col, Row, Container, Button, Image, Nav, Card } from "react-bootstrap";
+import {Component} from "react";
+import {Col, Row, Container, Button, Image, Nav, Card} from "react-bootstrap";
 import "./Sidebar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { InfoSquareFill, Globe } from "react-bootstrap-icons";
+import {InfoSquareFill, Globe} from "react-bootstrap-icons";
 
 import SidebarPerson from "../../HomePage/Sidebar/SidebarPerson";
 
@@ -14,12 +14,13 @@ class Sidebar extends Component {
 
   componentDidMount = async () => {
     try {
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/",
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1MzExZDcwNDBkZjAwMTU4NWM4MDIiLCJpYXQiOjE2MjM2MDYyMjYsImV4cCI6MTYyNDgxNTgyNn0.X_v8ZgYjqf7ggYTB9FEPB6S9dfBb88D4LKJ80Mn425c",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -76,10 +77,7 @@ class Sidebar extends Component {
                   <Globe id="globe_icon" />
                 </div>
                 <div className="d-flex justify-content-between m-2">
-                  <span
-                    className="edit-text ml-3 "
-                    style={{ fontSize: "12px" }}
-                  >
+                  <span className="edit-text ml-3 " style={{fontSize: "12px"}}>
                     Edit Public profile and url
                   </span>
                   <InfoSquareFill className="mr-2" />

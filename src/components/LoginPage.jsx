@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import React, {Component} from "react";
+import {withRouter} from "react-router-dom";
 import {
   Container,
   Dropdown,
@@ -9,13 +9,13 @@ import {
   Row,
   DropdownButton,
 } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
 
 class LoginPage extends Component {
-  state = { value: "select user", bearerToken: "", userId: "" };
+  state = {value: "select user", bearerToken: "", userId: ""};
 
   handleChange = (event) => {
-    this.setState({ value: event.target.value });
+    this.setState({value: event.target.value});
   };
 
   handleSubmit = (event) => {
@@ -24,12 +24,13 @@ class LoginPage extends Component {
   };
 
   checkUser = () => {
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
     if (this.state.value === "Helena") {
       this.setState({
         user: {
           username: "Helena",
-          bearerToken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM3M2Q4YjI5MTkzMDAwMTU2MGFiYTUiLCJpYXQiOjE2MjM2NzAxNTUsImV4cCI6MTYyNDg3OTc1NX0.Lid0KernjdrJ6T9JK4Y_EAbb2bH3Jd92w-gXUFfOsCA",
+          bearerToken: `${token}`,
           userId: "60c73d8b291930001560aba5",
         },
       });
@@ -38,8 +39,7 @@ class LoginPage extends Component {
       this.setState({
         user: {
           username: "Kapil",
-          bearerToken:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM3M2JmMTI5MTkzMDAwMTU2MGFiYTMiLCJpYXQiOjE2MjM5MzQ1NDUsImV4cCI6MTYyNTE0NDE0NX0.Mj6R-PdAHLE1b2_mB2TCyFpCN4_I5Ppa_TADX20Bkpo",
+          bearerToken: `${token}`,
           userId: "60c73d8b291930001560aba5",
         },
       });

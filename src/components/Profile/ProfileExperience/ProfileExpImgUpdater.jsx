@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { Modal, Form, Image, Col, Button } from "react-bootstrap";
+import {Component} from "react";
+import {Modal, Form, Image, Col, Button} from "react-bootstrap";
 
 export default class ProfileExpImgUpdater extends Component {
   state = {
@@ -14,7 +14,7 @@ export default class ProfileExpImgUpdater extends Component {
     },
   };
   onFileChange = (event) => {
-    this.setState({ experience: { image: event.target.files[0] } });
+    this.setState({experience: {image: event.target.files[0]}});
   };
   handleUpdateExp = async (e) => {
     e.preventDefault();
@@ -27,8 +27,9 @@ export default class ProfileExpImgUpdater extends Component {
     console.log(expId);
     // const userId = "60c73bf1291930001560aba3";
     const endpointPUTExp = `https://striveschool-api.herokuapp.com/api/profile/me/experiences/${expId}`;
-    const bearerTokenHedri =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM4YWVmOWEzYTNkNzAwMTUxY2IwNTQiLCJpYXQiOjE2MjM3NjQ3MjksImV4cCI6MTYyNDk3NDMyOX0.Y_86hS0H_3nodj7yLyRmp7q1ATdiHj_4FURWkrzM82I";
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
+    const bearerTokenHedri = `Bearer ${token}`;
     try {
       let response = await fetch(endpointPUTExp, {
         method: "POST",
@@ -63,12 +64,12 @@ export default class ProfileExpImgUpdater extends Component {
   inputChange = (e) => {
     let id = e.target.id;
     this.setState({
-      experience: { ...this.state.experience, [id]: e.target.value },
+      experience: {...this.state.experience, [id]: e.target.value},
     });
   };
 
   render() {
-    const { image } = this.state.experience;
+    const {image} = this.state.experience;
     return (
       <>
         <Modal size="lg" show={this.props.open} onHide={this.props.close}>

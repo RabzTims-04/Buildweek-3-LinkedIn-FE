@@ -1,5 +1,5 @@
-import { Component } from "react";
-import { Modal, Form, Row, Col, Button } from "react-bootstrap";
+import {Component} from "react";
+import {Modal, Form, Row, Col, Button} from "react-bootstrap";
 // import { ArrowsAngleExpand } from "react-bootstrap-icons";
 
 export default class ProfileExperiencePost extends Component {
@@ -20,8 +20,9 @@ export default class ProfileExperiencePost extends Component {
     console.log(this.state.experience);
     const userId = "60c8aef9a3a3d700151cb054";
     const endpointPostExp = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`;
-    const bearerTokenHedri =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM4YWVmOWEzYTNkNzAwMTUxY2IwNTQiLCJpYXQiOjE2MjM3NjQ3MjksImV4cCI6MTYyNDk3NDMyOX0.Y_86hS0H_3nodj7yLyRmp7q1ATdiHj_4FURWkrzM82I";
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
+    const bearerTokenHedri = `Bearer ${token}`;
     try {
       let response = await fetch(endpointPostExp, {
         method: "POST",
@@ -57,13 +58,12 @@ export default class ProfileExperiencePost extends Component {
   inputChange = (e) => {
     let id = e.target.id;
     this.setState({
-      experience: { ...this.state.experience, [id]: e.target.value },
+      experience: {...this.state.experience, [id]: e.target.value},
     });
   };
 
   render() {
-    const { company, role, area, startDate, description } =
-      this.state.experience;
+    const {company, role, area, startDate, description} = this.state.experience;
     return (
       <>
         <Modal
