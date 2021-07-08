@@ -6,18 +6,17 @@ import MyNav from "./components/MyNav/MyNav";
 import MyFooter from "./components/MyFooter/MyFooter";
 import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage/HomePage";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import NetworkFeed from "./components/Network/NetworkFeed";
-import { Component } from "react";
+import {Component} from "react";
 
 class App extends Component {
-  state = { user: "", isLoading: "" };
+  state = {user: "", isLoading: ""};
   componentDidMount = async () => {
-    this.setState({ isLoading: true });
+    this.setState({isLoading: true});
     try {
       const token =
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM4YWVmOWEzYTNkNzAwMTUxY2IwNTQiLCJpYXQiOjE2MjM3NjQ3MjksImV4cCI6MTYyNDk3NDMyOX0.Y_86hS0H_3nodj7yLyRmp7q1ATdiHj_4FURWkrzM82I";
-
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
       const response = await fetch(
         `https://striveschool-api.herokuapp.com/api/profile/me`,
         {
@@ -29,7 +28,7 @@ class App extends Component {
       if (response.ok) {
         const data = await response.json();
         console.log("This is sidebar profile data", data);
-        this.setState({ user: data, isLoading: false });
+        this.setState({user: data, isLoading: false});
       }
     } catch (error) {
       console.log(error);
@@ -59,6 +58,9 @@ class App extends Component {
 }
 
 export default App;
+
+//8/7/21 new token Kapil;
+//const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
 
 // Kapil : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM3M2Q4YjI5MTkzMDAwMTU2MGFiYTUiLCJpYXQiOjE2MjM2NzAxNTUsImV4cCI6MTYyNDg3OTc1NX0.Lid0KernjdrJ6T9JK4Y_EAbb2bH3Jd92w-gXUFfOsCA
 // Hedri : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM3M2JmMTI5MTkzMDAwMTU2MGFiYTMiLCJpYXQiOjE2MjM2Njk3NDUsImV4cCI6MTYyNDg3OTM0NX0.Lk5Z-l56SBkY6YCIvoiHpVg_0J0rEZHaO4PzAuep3bo

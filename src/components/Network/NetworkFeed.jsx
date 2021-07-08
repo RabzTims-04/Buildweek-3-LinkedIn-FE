@@ -1,16 +1,17 @@
 import React from "react";
-import { Container, Row, Col, Card, Button, Image } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import { Avatar } from "@material-ui/core";
+import {Container, Row, Col, Card, Button, Image} from "react-bootstrap";
+import {useState, useEffect} from "react";
+import {Avatar} from "@material-ui/core";
 import banner from "./banner.jpg";
 import "../HomePage/SidebarLeft/SidebarLeft.css";
 import "./NetworkFeed.css";
-import { XLg } from "react-bootstrap-icons";
-import { Nav } from "react-bootstrap";
+import {XLg} from "react-bootstrap-icons";
+import {Nav} from "react-bootstrap";
 
 const NetworkFeed = () => {
   const token =
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM3M2NmNzI5MTkzMDAwMTU2MGFiYTQiLCJpYXQiOjE2MjM2NzAwMDcsImV4cCI6MTYyNDg3OTYwN30.USHzFfeVTSKHLcrfBBYHNfhmiYlVmRCl_sts1-YCsz0";
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
+
   const [profiles, setProfiles] = useState([]);
   const getProfile = async () => {
     console.log("FIRST BEER");
@@ -45,10 +46,10 @@ const NetworkFeed = () => {
   return (
     <div>
       <Container>
-        <Row xs={4} className={{ display: "flex" }}>
+        <Row xs={4} className={{display: "flex"}}>
           {profiles.map((profile) => {
             return (
-              <Col style={{ padding: "10px" }}>
+              <Col style={{padding: "10px"}}>
                 <Card className="networkFeedCard">
                   <Image className="feedLeft-cover-img" src={banner} />
                   <XLg className="xCricleFill" />
@@ -68,7 +69,7 @@ const NetworkFeed = () => {
                   <Card.Body>
                     <Card.Title
                       className="networkFeed"
-                      style={{ marginTop: "50px" }}
+                      style={{marginTop: "50px"}}
                     >
                       <h2>{profile.name + " " + profile.surname || ""}</h2>
                     </Card.Title>

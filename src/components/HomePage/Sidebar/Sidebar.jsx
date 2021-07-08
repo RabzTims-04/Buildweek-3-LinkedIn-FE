@@ -1,6 +1,6 @@
-import { Component } from "react";
-import { Col, Row, Card, Button, Image, Accordion } from "react-bootstrap";
-import { ArrowRight, InfoSquareFill } from "react-bootstrap-icons";
+import {Component} from "react";
+import {Col, Row, Card, Button, Image, Accordion} from "react-bootstrap";
+import {ArrowRight, InfoSquareFill} from "react-bootstrap-icons";
 import "./Sidebar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SidebarPerson from "./SidebarPerson";
@@ -15,12 +15,13 @@ class Sidebar extends Component {
 
   componentDidMount = async () => {
     try {
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/profile/",
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGM1MzExZDcwNDBkZjAwMTU4NWM4MDIiLCJpYXQiOjE2MjM2MDYyMjYsImV4cCI6MTYyNDgxNTgyNn0.X_v8ZgYjqf7ggYTB9FEPB6S9dfBb88D4LKJ80Mn425c",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -44,7 +45,7 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { profiles, isLoading } = this.state;
+    const {profiles, isLoading} = this.state;
     const randomInteger = (min, max) => {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     };
