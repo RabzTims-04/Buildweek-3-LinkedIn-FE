@@ -223,6 +223,17 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
     }
   }
 
+  const dateFunction = (dateVal) => {
+    const today = new Date()
+    if(dateVal.getDate() === today.getDate()){
+      return "Today"
+    }else if(dateVal.getDate() === today.getDate() - 1){
+      return "Yesterday"
+    }else{
+      return dateVal.getDate().toLocaleDateString()
+    }
+  }
+
   return (
     <Accordion defaultActiveKey="0">
       <Card className="MainFeed p-0">
@@ -235,7 +246,8 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
           </div>
           </div>
           <div classname="">
-            <p style={{fontSize:"x-small"}} className="text-muted ml-auto p-0 m-0">{new Date(post.createdAt).toLocaleDateString()}</p>
+            <p style={{fontSize:"x-small"}} className="text-muted ml-auto p-0 m-0">{dateFunction(new Date(post.createdAt))} </p>
+            
             <p style={{fontSize:"x-small"}} className="text-muted ml-auto p-0 mt-1">{new Date(post.createdAt).toLocaleTimeString()}</p>
           </div>
         </div>
@@ -465,20 +477,23 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
                                 
                                 />
                                  </label>
-              <div className="d-flex justify-content-between">
-                  <Button onClick={()=> ref.current.click()}>
+              <div className="d-flex justify-content-between mt-4">
+                  <Button variant="outline-primary" onClick={()=> ref.current.click()}>
                     <CardImage className="post_icon" id="photo" style={{color: "#70b5f9"}} />
                     Upload Image
                   </Button>
-                  <Button onClick={()=>editPostImage()}>
+                  <Button variant="outline-secondary" onClick={()=>editPostImage()}>
                     Save Image
                   </Button>
               </div>
             </div>
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-around">
-            <Button variant="light" onClick={EditPost}>
+            <Button variant="warning" onClick={EditPost}>
               Discard
+            </Button>
+            <Button variant="danger" onClick={EditPost}>
+              Close
             </Button>
             <Button variant="success" onClick={SubmitEdit}>
               Change

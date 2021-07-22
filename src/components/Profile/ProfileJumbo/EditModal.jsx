@@ -1,8 +1,9 @@
 import './EditModal.css';
-import { Modal } from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 import { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import EditProfile from './EditProfile';
+import pdf from "../../../Assets/PDF_file_icon.svg"
 
 const {REACT_APP_BACKEND_URL} = process.env;
 class EditModal extends Component{
@@ -56,18 +57,20 @@ class EditModal extends Component{
             <Modal dialogClassName="my-modal" show={this.state.show} onHide={this.handleClose}>
 
                 <Modal.Header className="edit-modal" closeButton>                
-                            <Modal.Title>Edit intro</Modal.Title>                
+                            <Modal.Title>Edit intro</Modal.Title>
+                                       
                 </Modal.Header>
                 <Modal.Body className="modal-Body mt-4">
                     <EditProfile profileData={this.state.profileData} editInfo={this.props.editInfo} submit={this.submit}/>               
                 </Modal.Body>
                 <Modal.Footer>
-               {/*  <Button 
-                className="badge-pill savebtn" 
-                variant="primary" 
-                type="submit">
-                    <strong>Save</strong>
-                </Button> */}
+                <Button 
+                className="badge-pill" 
+                variant="outline-light" 
+                type={Link} target="blank" href={`${REACT_APP_BACKEND_URL}/profile/60f67bd86bce175ba8dec1d7/pdf`}
+                >
+                 <img  src={pdf} alt="pdf-icon" id="pdf-icon" />               
+                </Button> 
 
                 </Modal.Footer>
             </Modal> 

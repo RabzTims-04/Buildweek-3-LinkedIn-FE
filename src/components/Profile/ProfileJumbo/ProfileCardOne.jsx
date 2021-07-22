@@ -73,7 +73,7 @@ class ProfileCardOne extends Component {
 
                          <Link to="/">
                          <AiFillCamera className="camerabtn" style={{color:'blue', position:'absolute', right:'4%', top:'4%'}} size={20}/></Link>
-                    
+
                     <Card.Body>                    
                     <img onClick={this.handleShow} className="profilePic img-fluid" src={this.state.profPic?this.state.profPic:this.props.profileData.image} alt="profile-pic"/> 
 

@@ -17,7 +17,7 @@ const Learning = () => {
       <div className='videos_container'>
         <div className='video'>
           <img
-            src='https://media-exp1.licdn.com/dms/image/C4E0DAQEYWX58tVMaQw/learning-public-crop_60_100/0/1576687713263?e=1623801600&v=beta&t=hw8smMEWWxnVWBeGPQPMUp4hikk9hYW877-ZhbeU13Q'
+            src='https://www.theparticipanteffect.com/sites/default/files/users/nikolasadams/WP_Diversify.png'
             alt=''
           />
         </div>
