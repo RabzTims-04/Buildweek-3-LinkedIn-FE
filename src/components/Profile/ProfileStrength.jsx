@@ -26,10 +26,10 @@ class ProfileStrength extends Component {
                 <Col className='customRange'></Col>
                 <Col className='customRange'></Col>
                 <Col className='customRange'>
-                  <AiOutlineCheck className='tick' size={20} />
+                  <AiOutlineCheck id='tick' size={20} />
                 </Col>
                 <Col className='customRangeLast'>
-                  <AiOutlineStar className='star' size={20} />
+                  <AiOutlineStar id='star' size={20} />
                 </Col>
               </Row>
             </Form.Group>

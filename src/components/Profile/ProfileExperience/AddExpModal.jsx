@@ -1,9 +1,10 @@
 import './EditModal.css';
-import { Modal } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import AddExp from './AddExp';
 import { BsPlus } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 const {REACT_APP_BACKEND_URL} = process.env;
 class AddExpModal extends Component {
@@ -52,18 +53,23 @@ class AddExpModal extends Component {
           onHide={this.handleClose}
         >
           <Modal.Header className='edit-modal' closeButton>
-            <Modal.Title>Add Experience</Modal.Title>
+           <div className="d-flex flex-row justify-content-center">
+                <Modal.Title>Add Experience</Modal.Title>
+            </div>
           </Modal.Header>
           <Modal.Body className='modal-Body mt-4'>
             <AddExp addexp={this.props.addexp} />
           </Modal.Body>
-          <Modal.Footer>
-            {/*  <Button 
-                className="badge-pill savebtn" 
-                variant="primary" 
-                type="submit">
-                    <strong>Save</strong>
-                </Button> */}
+          <Modal.Footer  className="pb-3 text-center justify-content-center">
+          <div className="p-2 text-center">
+                <Button 
+                  className="badge-pill" 
+                  variant="warning"
+                  href={`${REACT_APP_BACKEND_URL}/profile/60f67bd86bce175ba8dec1d7/experiences/CSV`} 
+                  type={Link}>
+                      <strong>Download experiences</strong>
+                </Button>
+              </div>
           </Modal.Footer>
         </Modal>
       </>

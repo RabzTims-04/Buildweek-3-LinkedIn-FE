@@ -9,12 +9,12 @@
   border-radius: 10px;
 }
 .inputOptionsText {
-  color: gray!important;
+  color: gray;
   font-size: 14px;
   padding-left: 10px;
   align-items: center;
 }
 
 svg {
-  color: gray!important;
+  color: gray;
 }

@@ -3,11 +3,12 @@ import {Modal, Form, Row, Col, Button} from "react-bootstrap";
 
 const {REACT_APP_BACKEND_URL} = process.env;
 export default class ProfileAboutUpdater extends Component {
-  state = {user: {}};
+  state = {user: {bio:this.props.bio}};
 
   handleProfileUpdate = async (e) => {
+    e.preventDefault()
     // const userId = "60c73bf1291930001560aba3";
-    const endpointPUTprofile = `${REACT_APP_BACKEND_URL}/profile/`;
+    const endpointPUTprofile = `${REACT_APP_BACKEND_URL}/profile/60f67bd86bce175ba8dec1d7`;
 
     try {
       let response = await fetch(endpointPUTprofile, {
@@ -17,6 +18,8 @@ export default class ProfileAboutUpdater extends Component {
         },
         body: JSON.stringify(this.state.user),
       });
+      const data = await response.json();
+      this.props.editBio(data)
       console.log(response.ok);
       if (response.ok) {
         alert("Profile Updated!");
@@ -35,9 +38,8 @@ export default class ProfileAboutUpdater extends Component {
     }
   };
   inputChange = (e) => {
-    let id = e.target.id;
     this.setState({
-      user: {...this.state.user, [id]: e.target.value},
+      user: {bio: e.target.value},
     });
   };
 
@@ -52,7 +54,7 @@ export default class ProfileAboutUpdater extends Component {
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-modal-sizes-title-lg">
-              Update {this.props.name} Bio Info
+              Update {this.props.name}'s Bio Info
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -63,7 +65,8 @@ export default class ProfileAboutUpdater extends Component {
                   <Form.Control
                     id="bio"
                     type="text"
-                    placeholder={this.props.bio}
+                    value={this.state.user.bio}
+                    
                     onChange={(e) => this.inputChange(e)}
                   />
                 </Form.Group>

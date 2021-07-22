@@ -106,7 +106,7 @@ class Experience extends Component {
 
                         <Row className="justify-content-between">
                             <Col>
-                                 <h6>Experience</h6>
+                                 <h5>Experiences</h5>
                             </Col>
                             <Col className="text-right pr-0">
                                 <AddExpModal addexp={this.addexp} className="ml-auto p-0" style={{color:"gray", height:"30px"}}/>

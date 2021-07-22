@@ -76,7 +76,7 @@ class PostFeed extends Component {
 
                 alert('posted')
                 console.log('post',post);
-                /* this.props.newPost(post) */
+                this.props.newPost(post)
                 this.setState({
                   ...this.state,
                   feed: {

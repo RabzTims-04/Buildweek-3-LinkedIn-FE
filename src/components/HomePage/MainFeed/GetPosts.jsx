@@ -11,6 +11,9 @@ const GetPosts = (props) => {
 
   const [posts, setPosts] = useState([]);
   const [quickRead, setQuickRead] = useState(false);
+  const [editPost, setEditPost] = useState("");
+  const [editPostImg, setEditPostImg] = useState("");
+  const [delPost, setDelPost] = useState("");
 
   //funtion to toggle quickread
   function showQuickRead() {
@@ -18,6 +21,18 @@ const GetPosts = (props) => {
   }
   function handleClose() {
     setQuickRead(!quickRead);
+  }
+
+  const postEdited =(data) => {
+    setEditPost(data);
+  }
+
+  const postImg = (imgdata) => {
+    setEditPostImg(imgdata)
+  }
+
+  const postDel = (delpost) => {
+    setDelPost(delpost)
   }
 
   const getData = async () => {
@@ -36,6 +51,11 @@ const GetPosts = (props) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getData();
+  },[props.newPost, editPost, editPostImg, delPost])
+
   useEffect(() => {
     console.log("hello");
 
@@ -101,7 +121,7 @@ const GetPosts = (props) => {
             .map((post) => {
               return (
                 <div>
-                  <MainFeed user={props.user} key={post._id} post={post} />
+                  <MainFeed postDelete={postDel} editPostImg={postImg} editPost={postEdited} user={props.user} key={post._id} post={post} />
                 </div>
               );
             })

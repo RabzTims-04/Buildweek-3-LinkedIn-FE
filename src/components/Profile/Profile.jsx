@@ -8,6 +8,7 @@ import YourDashboard from './YourDashboard';
 import PeopleAlsoViewed from '../Profile/ProfileJumbo/PeopleAlsoViewed';
 import Learning from '../Profile/ProfileJumbo/Learning';
 import Experience from '../Profile/ProfileJumbo/Experience';
+import ProfileAbout from '../Profile/ProfileAbout/ProfileAbout';
 /* import Dashboard from './Dashboard'; */
 import Messaging from './Messaging';
 
@@ -25,6 +26,14 @@ class Profile extends Component {
       /* this.props.setprofiles(editInfo); */
     }
   };
+
+  editBio = (editdata) => {
+    if(editdata){
+      this.setState({
+        profileData: editdata,
+      });
+    }
+  }
 
   componentDidUpdate = (prevProps, prevState) => {
     //console.log('state', prevState);
@@ -78,13 +87,20 @@ class Profile extends Component {
               />
             </div>
 
+            <div className='mt-3' >
+              <ProfileAbout title={this.state.profileData.title} 
+              bio={this.state.profileData.bio} 
+              name={this.state.profileData.name}
+              editBio={this.editBio}
+              />
+            </div>
+
             <div className='mt-3'>
               <ProfileStrength />
             </div>
 
             <div className='mt-3'>
               <YourDashboard />
-              {/* <Dashboard /> */}
             </div>
 
             <div className='mt-3'>
@@ -94,10 +110,8 @@ class Profile extends Component {
 
           <Col lg={4} className=' d-flex flex-column d-md-none d-lg-block'>
             <RProfileCardOne />
-            {/* <RProfileCardTwo/> */}
             <PeopleAlsoViewed />
             <Learning />
-            {/* Carls Components */}
           </Col>
         </Row>
         <Messaging />

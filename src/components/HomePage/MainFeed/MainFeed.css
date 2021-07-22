@@ -176,3 +176,29 @@
   color: black!important;
   font-weight: bold;
 }
+
+#like svg{
+  color:blue!important;
+}
+
+#like .inputOptionsText{
+  color:blue!important;
+}
+
+#like{
+  background-color: rgb(227, 227, 255);
+  border-radius: 20px;
+}
+
+#likeone svg{
+  color:blue!important;
+}
+
+#likeone .inputOptionsText{
+  color:blue!important;
+}
+
+#likeone{
+  background-color: rgb(227, 227, 255);
+  border-radius: 20px;
+}
