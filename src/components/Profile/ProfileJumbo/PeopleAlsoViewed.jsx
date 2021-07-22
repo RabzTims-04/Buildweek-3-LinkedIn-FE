@@ -8,12 +8,12 @@ const PeopleAlsoViewed = () => {
   useEffect(() => {
     fetch(`${REACT_APP_BACKEND_URL}/profile/`)
       .then((response) => response.json())
-      .then((data) => setProfiles(data.slice(22, 33)));
+      .then((data) => setProfiles(data));
   }, []);
   return (
     <div className='people_also_viewed'>
       <p style={{ fontSize: '1.5em', fontWeight: '500' }}>People also viewed</p>
-      {Profiles.slice(3, 10).map((p) => (
+      {Profiles.map((p) => (
         <div className='profils_container' key={p._id}>
           <img src={p.image} alt={p.name + ' ' + p.surname} />
           <div className='profile_info'>

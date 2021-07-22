@@ -9,6 +9,7 @@
 }
 
 .customRange{
+    padding-top: 2rem;
     border-bottom: 10px solid green;
     margin-right: 2px;
     position: relative;
@@ -19,10 +20,10 @@
     position: relative;    
 }
 
-.tick{  
+#tick{  
     color:green;
-    right:-90%;
-    top: 200px;
+    right:-10%;
+    top: 20px!important;
     border: 1px solid green!important;
     border-radius: 50%;
     background-color: white;
@@ -30,20 +31,18 @@
     width: 30px;
     padding: 6px;
     z-index: 1;
+    position: absolute;
 }
 
-.star{  
+#star{  
     color:grey;
-    right:-90%;
-    top:70%;
+    right:-10%;
+    top:20px;
     border: 1px solid green!important;
     border-radius: 50%;
     background-color: white;
     height: 30px;
     width: 30px;
     padding: 6px;
-}
-
-.rangeRow{
-   
+    position: absolute;
 }

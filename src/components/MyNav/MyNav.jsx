@@ -86,11 +86,14 @@ class MyNav extends React.Component {
             </a>
           </div>
           <div className="myNavOptions">
-            <img src={this.props.user && this.props.user.image} style={{ height: "30px", width: "30px" }} alt="user pic" />
            {/*  <Avatar src={myPic}  /> */}
-            <a className="myNavOptionsTitle" href="/profile/60f67bd86bce175ba8dec1d7">
-              Me
+            <a className="myNavOptionsTitle d-flex flex-column" href="/profile/60f67bd86bce175ba8dec1d7">
+            <div>
+            <img src={this.props.user && this.props.user.image} className="rounded-circle" style={{ height: "30px", width: "30px" }} alt="user pic" />
+              
+            </div>
               <span>
+              Me
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="12"

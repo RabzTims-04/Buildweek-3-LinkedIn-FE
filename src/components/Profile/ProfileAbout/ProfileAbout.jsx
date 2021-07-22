@@ -19,7 +19,10 @@ class ProfileAbout extends Component {
       <>
         <Card className="my-2" id="aboutProfile">
           <Card.Title id="aboutProfile_title" className="mt-1">
-            <span>{this.props.title}</span>
+              <h5>
+                  <span className=''>About:</span>{' '}                  
+              </h5>
+            
             {this.props.match.params.id === "60f67bd86bce175ba8dec1d7" ? (
               <Pencil
                 id="pencil-icon"
@@ -31,6 +34,7 @@ class ProfileAbout extends Component {
           </Card.Title>
           <Card.Body id="aboutProfile_body">
             <Card.Text>
+              <h6><span>{this.props.title}</span></h6>
               <p>{this.props.bio}</p>
             </Card.Text>
           </Card.Body>
@@ -38,6 +42,9 @@ class ProfileAbout extends Component {
         <ProfileAboutUpdater
           open={this.state.showModalAbout}
           close={this.closeAboutModal}
+          bio={this.props.bio}
+          name={this.props.name}
+          editBio={this.props.editBio}
         />
       </>
     );

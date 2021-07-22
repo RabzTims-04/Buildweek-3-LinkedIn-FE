@@ -18,6 +18,7 @@ export default class HomePage extends Component {
     back: false,
     backgroundColor: "#ecebeb",
     isLoading: false,
+    updatePost:{}
   };
 
   componentDidMount = async () => {
@@ -33,6 +34,14 @@ export default class HomePage extends Component {
       console.log(error);
     }
   };
+
+
+  newPost = async(data) => {
+    this.setState({
+      ...this.state,
+      updatePost: data
+    });
+  }
 
   render() {
     const {user, isLoading} = this.state;
@@ -63,11 +72,11 @@ export default class HomePage extends Component {
               <SidebarLeftMain user={user} isLoading={isLoading} />
             </Col>
             <Col lg={6} className='d-flex flex-column'>
-              <PostFeed user={user} isLoading={isLoading} />
+              <PostFeed newPost={this.newPost} user={user} isLoading={isLoading} />
               {this.state.isLoading === true ? (
                 <MyLoader />
               ) : (
-                <GetPosts user={user} isLoading={isLoading} />
+                <GetPosts newPost={this.state.updatePost} user={user} isLoading={isLoading} />
               )}
             </Col>
             <Col lg={3} className=' d-flex flex-column'>

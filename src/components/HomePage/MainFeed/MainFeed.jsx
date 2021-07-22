@@ -1,6 +1,7 @@
 import {Avatar} from "@material-ui/core";
 import * as Icons from "react-bootstrap-icons";
-import React from "react";
+import { CardImage } from "react-bootstrap-icons";
+import React, {createRef} from "react";
 import {Link } from "react-router-dom";
 import "../MainFeed/MainFeed.css";
 import InputOptions from "../MainFeed/InputOptions";
@@ -22,15 +23,20 @@ import {
 import {useState, useEffect} from "react";
 
 const {REACT_APP_BACKEND_URL} = process.env;
-const MainFeed = ({post, user}) => {
+const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
+  const ref = createRef();
   const [edited, setEdited] = useState(false);
   const [commentEdit, setCommentEdit] = useState(false);
   const [postText, setPostText] = useState(post.text);
   const obj = {text: postText};
+  let imgObj = {image:post.image}
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState({"text":"", "user":`${user._id}`});
-  const [editComments, setEditComments] = useState({"text":""});
+  const [editComments, setEditComments] = useState();
+  const objComm = {text: editComments}
   const [commentId, setCommentId] = useState();
+  const [likes, setLikes] = useState(false);
+  const [likeData, setLikeData] = useState();
   // function to edit post
 
   function EditPost() {
@@ -53,22 +59,17 @@ const MainFeed = ({post, user}) => {
     console.log("E",e.key);
     if(e.key ==='Enter'){
       e.preventDefault()
-    try {
-      
+    try {      
       const response = await fetch (`${REACT_APP_BACKEND_URL}/comments/${post._id}`, {
         method: "POST",
         body: JSON.stringify(commentText),
         headers:{
           "Content-type":"application/json"
         }
-      })
-   
+      })   
       if(response.ok){
-  /*       alert("comment posted successfully") */
-
         setCommentText({"text":"", "user":`${user._id}`})
         getComments()
-
       }else{
         console.log("error posting comment")
       }
@@ -82,11 +83,10 @@ const MainFeed = ({post, user}) => {
   async function editComment(e){
 
       e.preventDefault()
-    try {
-      
+    try {      
       const response = await fetch (`${REACT_APP_BACKEND_URL}/comments/${e.currentTarget.id}`, {
         method: "PUT",
-        body: JSON.stringify(editComments),
+        body: JSON.stringify(objComm),
         headers:{
           "Content-type":"application/json"
         }
@@ -94,10 +94,8 @@ const MainFeed = ({post, user}) => {
    
       if(response.ok){
        alert("comment edited successfully")
-
-        setEditComments({"text":""})
+        setEditComments()
         getComments()
-
       }else{
         console.log("error posting comment")
       }
@@ -135,6 +133,7 @@ const MainFeed = ({post, user}) => {
     }
   }
 
+
   useEffect(() => {
     console.log("hello");
     getComments();
@@ -157,16 +156,45 @@ const MainFeed = ({post, user}) => {
           },
         }
       );
+      const data = await response.json();
+      editPost(data)
+      if(response.ok){
       alert("The post has been EDITED! ");
       EditPost();
-      // .then((result) => {
-      //   console.log(result, "The text has been deleted");
-      //   // console.log("text posted Image left and check it down");
-      //   return result;
-      // });
+    }
     } catch (error) {
       console.log(error);
       console.log("There is some error");
+    }
+  }
+
+  //edit post image
+
+  async function editPostImage(){
+    console.log("hello edit image");
+    try {
+      let formData = new FormData()   
+      formData.set('post', imgObj.image)
+      if(imgObj.image){
+        try {
+            const imgresp = await fetch(`${REACT_APP_BACKEND_URL}/posts/${post._id}/image`,{
+                method:'POST',
+                body:formData,
+            })
+            console.log(imgresp);
+            const data = await imgresp.json();
+            editPostImg(data)
+            if(imgresp.ok){
+              alert("image edited successfully")
+            }else{
+              console.log("error posting image");
+            }
+        } catch (error) {
+            console.log(error);            
+        }
+    }  
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -183,15 +211,11 @@ const MainFeed = ({post, user}) => {
           `${REACT_APP_BACKEND_URL}/posts/${post._id}`,
           {
             method: "DELETE",
-            // body: JSON.stringify(this.state.feed),
           }
         );
+        const data = await response.json();
+        postDelete(data)
         alert("The post has been deleted! ");
-        // .then((result) => {
-        //   console.log(result, "The text has been deleted");
-        //   // console.log("text posted Image left and check it down");
-        //   return result;
-        // });
       } catch (error) {
         console.log(error);
         console.log("There is some error");
@@ -201,14 +225,51 @@ const MainFeed = ({post, user}) => {
     }
   }
 
+  async function postLikes() {
+    try {
+      const response = await fetch(`${REACT_APP_BACKEND_URL}/posts/${user._id}/likes/${post._id}`, {
+        method:"POST",
+        headers:{
+          "content-type":"application/json"
+        }
+      })
+      const data = await response.json();
+      console.log(data);
+      if(response.ok){
+        setLikes(!likes)
+        setLikeData(data)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const dateFunction = (dateVal) => {
+    const today = new Date()
+    if(dateVal.getDate() === today.getDate()){
+      return "Today"
+    }else if(dateVal.getDate() === today.getDate() - 1){
+      return "Yesterday"
+    }else{
+      return dateVal.getDate().toLocaleDateString()
+    }
+  }
+
   return (
     <Accordion defaultActiveKey="0">
       <Card className="MainFeed p-0">
-        <div className="MainFeedHeader px-3 pt-3 m-0">
+        <div className="MainFeedHeader px-3 pt-3 m-0  d-flex justify-content-between">
+          <div className="d-flex">
           <Avatar src={post.user.image} />
           <div className="MainHeaderInfo">
             <h2>{post.user.name + " " + post.user.surname || ""}</h2>
             <p>{post.user.title || ""}</p>
+          </div>
+          </div>
+          <div classname="">
+            <p style={{fontSize:"x-small"}} className="text-muted ml-auto p-0 m-0">{dateFunction(new Date(post.createdAt))} </p>
+            
+            <p style={{fontSize:"x-small"}} className="text-muted ml-auto p-0 mt-1">{new Date(post.createdAt).toLocaleTimeString()}</p>
           </div>
         </div>
         <p className="px-3">{post.text}</p>
@@ -225,7 +286,7 @@ const MainFeed = ({post, user}) => {
                         <img src="https://static-exp1.licdn.com/sc/h/54ivsuv8nxk12frsw45evxn3r" alt="APPRECIATION"/> 
 
                        
-                        <span style={{fontSize:'0.7em'}} className="text-muted ml-2 number-span"> <Link style={{fontSize:'1em', fontWeight:'450'}} className="text-muted" to="">321</Link> </span>
+                        <span style={{fontSize:'0.7em'}} className="text-muted ml-2 number-span"> <Link style={{fontSize:'1em', fontWeight:'450'}} className="text-muted" to="">{likeData && likeData.likes.length}</Link> </span>
                         
 
                         <span style={{fontSize:'0.7em'}} className="text-muted ml-2"> <Link style={{fontSize:'1em', fontWeight:'450'}} className="text-muted" to="">{comments && comments.length} {comments && comments.length === 1? "comment":"comments"}</Link> </span>                    
@@ -233,9 +294,11 @@ const MainFeed = ({post, user}) => {
         {post.user._id === "60f67bd86bce175ba8dec1d7" ? (
          
             <div className="MainFeedBodyButtons text-muted ">
+              <div id= {likes ? "likeone" : ""}  onClick={postLikes}>
               <InputOptions SVGs={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" className="mercado-match m-0" width="24" height="24" focusable="false">
                                 <path d="M19.46 11l-3.91-3.91a7 7 0 01-1.69-2.74l-.49-1.47A2.76 2.76 0 0010.76 1 2.75 2.75 0 008 3.74v1.12a9.19 9.19 0 00.46 2.85L8.89 9H4.12A2.12 2.12 0 002 11.12a2.16 2.16 0 00.92 1.76A2.11 2.11 0 002 14.62a2.14 2.14 0 001.28 2 2 2 0 00-.28 1 2.12 2.12 0 002 2.12v.14A2.12 2.12 0 007.12 22h7.49a8.08 8.08 0 003.58-.84l.31-.16H21V11zM19 19h-1l-.73.37a6.14 6.14 0 01-2.69.63H7.72a1 1 0 01-1-.72l-.25-.87-.85-.41A1 1 0 015 17l.17-1-.76-.74A1 1 0 014.27 14l.66-1.09-.73-1.1a.49.49 0 01.08-.7.48.48 0 01.34-.11h7.05l-1.31-3.92A7 7 0 0110 4.86V3.75a.77.77 0 01.75-.75.75.75 0 01.71.51L12 5a9 9 0 002.13 3.5l4.5 4.5H19z"></path>
-                                </svg>} title="Like" />
+                                </svg>} title={likes ? "Liked" : "Like"} />
+              </div>
           <Accordion.Toggle
             id="accordion_toggle_button"
             as={Button}
@@ -263,9 +326,11 @@ const MainFeed = ({post, user}) => {
          
         ) : (
           <div className="MainFeedBodyButtons text-muted ">
+            <div id= {likes ? "like" : ""} onClick={postLikes}>
               <InputOptions SVGs={<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" className="mercado-match m-0" width="24" height="24" focusable="false">
                                 <path d="M19.46 11l-3.91-3.91a7 7 0 01-1.69-2.74l-.49-1.47A2.76 2.76 0 0010.76 1 2.75 2.75 0 008 3.74v1.12a9.19 9.19 0 00.46 2.85L8.89 9H4.12A2.12 2.12 0 002 11.12a2.16 2.16 0 00.92 1.76A2.11 2.11 0 002 14.62a2.14 2.14 0 001.28 2 2 2 0 00-.28 1 2.12 2.12 0 002 2.12v.14A2.12 2.12 0 007.12 22h7.49a8.08 8.08 0 003.58-.84l.31-.16H21V11zM19 19h-1l-.73.37a6.14 6.14 0 01-2.69.63H7.72a1 1 0 01-1-.72l-.25-.87-.85-.41A1 1 0 015 17l.17-1-.76-.74A1 1 0 014.27 14l.66-1.09-.73-1.1a.49.49 0 01.08-.7.48.48 0 01.34-.11h7.05l-1.31-3.92A7 7 0 0110 4.86V3.75a.77.77 0 01.75-.75.75.75 0 01.71.51L12 5a9 9 0 002.13 3.5l4.5 4.5H19z"></path>
-                                </svg>} title="Like" />
+                                </svg>} title={likes ? "Liked" : "Like"} />
+                </div>
           <Accordion.Toggle
             id="accordion_toggle_button"
             as={Button}
@@ -364,7 +429,7 @@ const MainFeed = ({post, user}) => {
                                           value={editComments}
                                           onChange={(e) => {
                                             console.log(e.target.value, "Modal edit comment");
-                                            return setEditComments({text:e.target.value});
+                                            setEditComments(e.target.value);
                                           }}
                                         />
                                       </Modal.Body>
@@ -416,10 +481,44 @@ const MainFeed = ({post, user}) => {
                 return setPostText(e.target.value);
               }}
             />
+
+            <div className="text-center">
+            <label className="p-0 d-flex m-0" for="postimg">                               
+                               
+                                <input 
+                                    onClick={(e)=> {e.stopPropagation()
+                                    return true}}
+                                   hidden
+                                    type="file"
+                                    title="choose"
+                                    id="postimg"
+                                    ref={ref}
+                                /* id="image" */
+                                    onChange={(e) => {
+                                     (imgObj = { image :e.target.files[0]})
+                                      /* setPostImg({image:e.target.files[0]}) */
+                               
+                                console.log(e.target.files[0])}}
+                                
+                                />
+                                 </label>
+              <div className="d-flex justify-content-between mt-4">
+                  <Button variant="outline-primary" onClick={()=> ref.current.click()}>
+                    <CardImage className="post_icon" id="photo" style={{color: "#70b5f9"}} />
+                    Upload Image
+                  </Button>
+                  <Button variant="outline-secondary" onClick={()=>editPostImage()}>
+                    Save Image
+                  </Button>
+              </div>
+            </div>
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-around">
-            <Button variant="light" onClick={EditPost}>
+            <Button variant="warning" onClick={EditPost}>
               Discard
+            </Button>
+            <Button variant="danger" onClick={EditPost}>
+              Close
             </Button>
             <Button variant="success" onClick={SubmitEdit}>
               Change
