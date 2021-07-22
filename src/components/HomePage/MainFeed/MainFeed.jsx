@@ -1,6 +1,7 @@
 import {Avatar} from "@material-ui/core";
 import * as Icons from "react-bootstrap-icons";
-import React from "react";
+import { CardImage } from "react-bootstrap-icons";
+import React, {createRef} from "react";
 import {Link } from "react-router-dom";
 import "../MainFeed/MainFeed.css";
 import InputOptions from "../MainFeed/InputOptions";
@@ -22,14 +23,17 @@ import {
 import {useState, useEffect} from "react";
 
 const {REACT_APP_BACKEND_URL} = process.env;
-const MainFeed = ({post, user}) => {
+const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
+  const ref = createRef();
   const [edited, setEdited] = useState(false);
   const [commentEdit, setCommentEdit] = useState(false);
   const [postText, setPostText] = useState(post.text);
   const obj = {text: postText};
+  let imgObj = {image:post.image}
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState({"text":"", "user":`${user._id}`});
-  const [editComments, setEditComments] = useState({"text":""});
+  const [editComments, setEditComments] = useState();
+  const objComm = {text: editComments}
   const [commentId, setCommentId] = useState();
   // function to edit post
 
@@ -53,22 +57,17 @@ const MainFeed = ({post, user}) => {
     console.log("E",e.key);
     if(e.key ==='Enter'){
       e.preventDefault()
-    try {
-      
+    try {      
       const response = await fetch (`${REACT_APP_BACKEND_URL}/comments/${post._id}`, {
         method: "POST",
         body: JSON.stringify(commentText),
         headers:{
           "Content-type":"application/json"
         }
-      })
-   
+      })   
       if(response.ok){
-  /*       alert("comment posted successfully") */
-
         setCommentText({"text":"", "user":`${user._id}`})
         getComments()
-
       }else{
         console.log("error posting comment")
       }
@@ -82,11 +81,10 @@ const MainFeed = ({post, user}) => {
   async function editComment(e){
 
       e.preventDefault()
-    try {
-      
+    try {      
       const response = await fetch (`${REACT_APP_BACKEND_URL}/comments/${e.currentTarget.id}`, {
         method: "PUT",
-        body: JSON.stringify(editComments),
+        body: JSON.stringify(objComm),
         headers:{
           "Content-type":"application/json"
         }
@@ -94,10 +92,8 @@ const MainFeed = ({post, user}) => {
    
       if(response.ok){
        alert("comment edited successfully")
-
-        setEditComments({"text":""})
+        setEditComments()
         getComments()
-
       }else{
         console.log("error posting comment")
       }
@@ -135,6 +131,7 @@ const MainFeed = ({post, user}) => {
     }
   }
 
+
   useEffect(() => {
     console.log("hello");
     getComments();
@@ -157,16 +154,45 @@ const MainFeed = ({post, user}) => {
           },
         }
       );
+      const data = await response.json();
+      editPost(data)
+      if(response.ok){
       alert("The post has been EDITED! ");
       EditPost();
-      // .then((result) => {
-      //   console.log(result, "The text has been deleted");
-      //   // console.log("text posted Image left and check it down");
-      //   return result;
-      // });
+    }
     } catch (error) {
       console.log(error);
       console.log("There is some error");
+    }
+  }
+
+  //edit post image
+
+  async function editPostImage(){
+    console.log("hello edit image");
+    try {
+      let formData = new FormData()   
+      formData.set('post', imgObj.image)
+      if(imgObj.image){
+        try {
+            const imgresp = await fetch(`${REACT_APP_BACKEND_URL}/posts/${post._id}/image`,{
+                method:'POST',
+                body:formData,
+            })
+            console.log(imgresp);
+            const data = await imgresp.json();
+            editPostImg(data)
+            if(imgresp.ok){
+              alert("image edited successfully")
+            }else{
+              console.log("error posting image");
+            }
+        } catch (error) {
+            console.log(error);            
+        }
+    }  
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -183,15 +209,11 @@ const MainFeed = ({post, user}) => {
           `${REACT_APP_BACKEND_URL}/posts/${post._id}`,
           {
             method: "DELETE",
-            // body: JSON.stringify(this.state.feed),
           }
         );
+        const data = await response.json();
+        postDelete(data)
         alert("The post has been deleted! ");
-        // .then((result) => {
-        //   console.log(result, "The text has been deleted");
-        //   // console.log("text posted Image left and check it down");
-        //   return result;
-        // });
       } catch (error) {
         console.log(error);
         console.log("There is some error");
@@ -204,11 +226,17 @@ const MainFeed = ({post, user}) => {
   return (
     <Accordion defaultActiveKey="0">
       <Card className="MainFeed p-0">
-        <div className="MainFeedHeader px-3 pt-3 m-0">
+        <div className="MainFeedHeader px-3 pt-3 m-0  d-flex justify-content-between">
+          <div className="d-flex">
           <Avatar src={post.user.image} />
           <div className="MainHeaderInfo">
             <h2>{post.user.name + " " + post.user.surname || ""}</h2>
             <p>{post.user.title || ""}</p>
+          </div>
+          </div>
+          <div classname="">
+            <p style={{fontSize:"x-small"}} className="text-muted ml-auto p-0 m-0">{new Date(post.createdAt).toLocaleDateString()}</p>
+            <p style={{fontSize:"x-small"}} className="text-muted ml-auto p-0 mt-1">{new Date(post.createdAt).toLocaleTimeString()}</p>
           </div>
         </div>
         <p className="px-3">{post.text}</p>
@@ -364,7 +392,7 @@ const MainFeed = ({post, user}) => {
                                           value={editComments}
                                           onChange={(e) => {
                                             console.log(e.target.value, "Modal edit comment");
-                                            return setEditComments({text:e.target.value});
+                                            setEditComments(e.target.value);
                                           }}
                                         />
                                       </Modal.Body>
@@ -416,6 +444,37 @@ const MainFeed = ({post, user}) => {
                 return setPostText(e.target.value);
               }}
             />
+
+            <div className="text-center">
+            <label className="p-0 d-flex m-0" for="postimg">                               
+                               
+                                <input 
+                                    onClick={(e)=> {e.stopPropagation()
+                                    return true}}
+                                   hidden
+                                    type="file"
+                                    title="choose"
+                                    id="postimg"
+                                    ref={ref}
+                                /* id="image" */
+                                    onChange={(e) => {
+                                     (imgObj = { image :e.target.files[0]})
+                                      /* setPostImg({image:e.target.files[0]}) */
+                               
+                                console.log(e.target.files[0])}}
+                                
+                                />
+                                 </label>
+              <div className="d-flex justify-content-between">
+                  <Button onClick={()=> ref.current.click()}>
+                    <CardImage className="post_icon" id="photo" style={{color: "#70b5f9"}} />
+                    Upload Image
+                  </Button>
+                  <Button onClick={()=>editPostImage()}>
+                    Save Image
+                  </Button>
+              </div>
+            </div>
           </Modal.Body>
           <Modal.Footer className="d-flex justify-content-around">
             <Button variant="light" onClick={EditPost}>
