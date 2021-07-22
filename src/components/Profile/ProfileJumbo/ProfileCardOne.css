@@ -1,0 +1,131 @@
+.card{
+
+    border-radius: 12px!important;
+    position: relative;
+}
+
+.card-body{
+    padding-bottom: 0!important;
+}
+
+.profilePic{
+    position: absolute;
+    border: 4px solid white;
+    border-radius: 50%;
+    width: 150px;
+    top:20%;
+}
+
+.cardImg{
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+    height: 180px;
+}
+
+.btn1{
+    width: 90px;
+    padding: 0.2em 0;
+    background-color:#0c5cac!important;
+    border-color:#0c5cac!important ;
+}
+
+.btn1:hover{
+    background-color:#004182!important;
+    border-color:#004182!important ;
+}
+
+.btn2{
+    padding: 0.2em 0.8em;
+}
+
+.btn3{
+    width: 80px;
+    padding: 0.2em 0;
+}
+
+.card-footer{
+    background-color: transparent!important;
+    border: 1px solid grey;
+    border-radius: 12px!important;
+    height: 80px;
+}
+
+.camerabtn{
+    border: 1px transparent grey!important;
+    border-radius: 50%;
+    background-color: #EBEBEB;
+    height: 30px;
+    width: 30px;
+    padding: 6px;
+}
+
+#profileModal{
+    border-radius: 20%!important;
+    background-color: transparent!important;
+    color: white;
+    border-color: transparent!important;
+}
+
+#profileModal .modal-header{
+    background-color: #1D2226!important;
+    border-bottom: none!important;
+    border-top-right-radius: 15px!important;
+    border-top-left-radius: 15px!important;
+    border-color: none;
+    border-top-color:rgb(99, 97, 97) ;
+    padding-right: 2em!important;
+    padding-top: 2em!important;
+}
+
+#profileModal .modal-body{
+    background-color: #1D2226!important;
+}
+
+#profileModal .modal-footer{
+    background-color: #1D2226!important;
+    border-color:rgb(99, 97, 97)!important ;
+    border-bottom-right-radius: 15px!important;
+    border-bottom-left-radius: 15px!important;
+}
+
+#profileModal .modal-content{
+    background-color: transparent!important;
+    border-color: transparent!important;
+}
+
+#profileModal button{
+    background-color: transparent!important;
+    border-color: transparent!important;
+    padding: 0;
+}
+
+#profileModal button:hover{
+    background-color: rgb(71, 69, 69)!important;
+}
+
+#profileModal button:focus{
+   border-color: transparent!important;
+}
+
+#profileModal button:focus-visible{
+    border-color: transparent!important;
+}
+
+.btn.focus, .btn:focus{
+    box-shadow: transparent!important;
+}
+
+.btn-primary.focus, .btn-primary:focus{
+    box-shadow: transparent!important;
+}
+
+#profileModal svg{
+    color:white!important;
+    width: 26px;
+    height: 26px;
+}
+
+.modalProfilePic{
+    border-radius: 50%;
+    width: 300px;
+}

@@ -20,7 +20,7 @@ class ProfileExperienceSingle extends Component {
     return (
       <>
         <hr className="mt-1 mb-2" />
-        {this.props.match.params.id === "me" ? (
+        {this.props.match.params.id === "60f67bd86bce175ba8dec1d7" ? (
           <Pencil
             id="pencil-icon"
             onClick={() => this.setState({ showModalExpPut: true })}
@@ -30,7 +30,7 @@ class ProfileExperienceSingle extends Component {
         )}
         <Row id="expProfileSingle">
           <Col xs={2}>
-            {this.props.match.params.id === "me" ? (
+            {this.props.match.params.id === "60f67bd86bce175ba8dec1d7" ? (
               this.props.image === undefined ? (
                 <Pencil
                   id="pencil-icon"

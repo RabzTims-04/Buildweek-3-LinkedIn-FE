@@ -1,6 +1,7 @@
 import {Component} from "react";
 import {Modal, Form, Image, Col, Button} from "react-bootstrap";
 
+const {REACT_APP_BACKEND_URL} = process.env;
 export default class ProfileExpImgUpdater extends Component {
   state = {
     experience: {
@@ -26,15 +27,11 @@ export default class ProfileExpImgUpdater extends Component {
     let expId = this.props.idExp;
     console.log(expId);
     // const userId = "60c73bf1291930001560aba3";
-    const endpointPUTExp = `https://striveschool-api.herokuapp.com/api/profile/me/experiences/${expId}`;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    const bearerTokenHedri = `Bearer ${token}`;
+    const endpointPUTExp = `${REACT_APP_BACKEND_URL}/profile/60f67bd86bce175ba8dec1d7/experiences/${expId}`;
     try {
       let response = await fetch(endpointPUTExp, {
         method: "POST",
         headers: {
-          Authorization: bearerTokenHedri,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(this.state.experience),

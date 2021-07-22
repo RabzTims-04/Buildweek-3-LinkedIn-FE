@@ -10,7 +10,7 @@ import GetPosts from "../HomePage/MainFeed/GetPosts";
 import "./HomePage.css";
 import NetworkFeed from "../Network/NetworkFeed";
 
-// 8/7/21 Bearer token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc
+const { REACT_APP_BACKEND_URL } = process.env
 
 export default class HomePage extends Component {
   state = {
@@ -23,18 +23,7 @@ export default class HomePage extends Component {
   componentDidMount = async () => {
     this.setState({isLoading: true});
     try {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-      const bearerTokenHedri = `Bearer ${token}`;
-
-      const response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/profile/me`,
-        {
-          headers: {
-            Authorization: bearerTokenHedri,
-          },
-        }
-      );
+      const response = await fetch(`${REACT_APP_BACKEND_URL}/profile/60f67bd86bce175ba8dec1d7`);
       if (response.ok) {
         const data = await response.json();
         console.log("This is sidebar profile data", data);
@@ -70,18 +59,18 @@ export default class HomePage extends Component {
         </Form>
         <Container>
           <Row>
-            <Col xs={3}>
+            <Col lg={3} className='d-none d-lg-flex flex-column'>
               <SidebarLeftMain user={user} isLoading={isLoading} />
             </Col>
-            <Col xs={6}>
+            <Col lg={6} className='d-flex flex-column'>
               <PostFeed user={user} isLoading={isLoading} />
               {this.state.isLoading === true ? (
                 <MyLoader />
               ) : (
-                <GetPosts isLoading={isLoading} />
+                <GetPosts user={user} isLoading={isLoading} />
               )}
             </Col>
-            <Col xs={3}>
+            <Col lg={3} className=' d-flex flex-column'>
               <Sidebar isLoading={isLoading} back={this.state.back} />
             </Col>
           </Row>

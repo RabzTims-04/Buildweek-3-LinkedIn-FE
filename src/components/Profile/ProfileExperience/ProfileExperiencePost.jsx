@@ -1,7 +1,7 @@
 import {Component} from "react";
 import {Modal, Form, Row, Col, Button} from "react-bootstrap";
 // import { ArrowsAngleExpand } from "react-bootstrap-icons";
-
+const {REACT_APP_BACKEND_URL} = process.env;
 export default class ProfileExperiencePost extends Component {
   state = {
     experience: {
@@ -10,6 +10,7 @@ export default class ProfileExperiencePost extends Component {
       area: "",
       description: "",
       startDate: "",
+      username:"rabztims",
       endDate: null,
     },
   };
@@ -18,16 +19,12 @@ export default class ProfileExperiencePost extends Component {
     e.preventDefault();
     console.log("Gonna submit Exp now");
     console.log(this.state.experience);
-    const userId = "60c8aef9a3a3d700151cb054";
-    const endpointPostExp = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    const bearerTokenHedri = `Bearer ${token}`;
+    const userId = "60f67bd86bce175ba8dec1d7";
+    const endpointPostExp = `${REACT_APP_BACKEND_URL}/profile/${userId}/experiences`;
     try {
       let response = await fetch(endpointPostExp, {
         method: "POST",
         headers: {
-          Authorization: bearerTokenHedri,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(this.state.experience),
@@ -42,6 +39,7 @@ export default class ProfileExperiencePost extends Component {
             area: "",
             description: "",
             startDate: "",
+            username:"rabztims",
             endDate: null,
           },
         });

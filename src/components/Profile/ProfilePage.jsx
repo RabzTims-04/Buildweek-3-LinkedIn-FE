@@ -1,14 +1,19 @@
 import React, {Component} from "react";
 import {Col, Row, Container, Button, Modal} from "react-bootstrap";
 
+import Messaging from "./Messaging";
+import ProfileCardOne from "./ProfileJumbo/ProfileCardOne";
 import ProfileJumbo from "./ProfileJumbo/ProfileJumbo";
 import ProfileAbout from "./ProfileAbout/ProfileAbout";
-import YourDashBoardProfile from "./YourDashBoardProfile";
 import ProfileUpdater from "./ProfileJumbo/ProfileJumboUpdater";
 import ProfileExperience from "./ProfileExperience/ProfileExperience";
 import Sidebar from "./Sidebar/Sidebar";
 import {withRouter} from "react-router-dom";
 import MyLoader from "../Loaders/MyLoader";
+import YourDashboard from "./YourDashboard";
+import ProfileStrength from "./ProfileStrength";
+
+const {REACT_APP_BACKEND_URL} = process.env;
 class ProfilePage extends Component {
   state = {
     user: {},
@@ -17,20 +22,16 @@ class ProfilePage extends Component {
 
   componentDidMount = async () => {
     const userID =
-      this.props.match.params.id === "me"
-        ? "60c8aef9a3a3d700151cb054"
+      this.props.match.params.id === "60f67bd86bce175ba8dec1d7"
+        ? "60f67bd86bce175ba8dec1d7"
         : this.props.match.params.id;
     // const userId = "60c73bf1291930001560aba3";
 
     this.setState({isLoading: true});
-    const endpointGetMyProfile = `https://striveschool-api.herokuapp.com/api/profile/${userID}`;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    const bearerTokenHedri = `Bearer ${token}`;
+    const endpointGetMyProfile = `${REACT_APP_BACKEND_URL}/profile/${userID}`;
     try {
       let getResponse = await fetch(endpointGetMyProfile, {
         headers: {
-          Authorization: bearerTokenHedri,
           "Content-Type": "application/json",
         },
       });
@@ -57,25 +58,23 @@ class ProfilePage extends Component {
                   {this.state.isLoading === true ? (
                     <MyLoader />
                   ) : (
-                    <ProfileJumbo
-                      userId={this.state.user._id}
-                      name={this.state.user.name}
-                      surname={this.state.user.surname}
-                      image={this.state.user.image}
-                      bio={this.state.user.bio}
-                      title={this.state.user.title}
-                      area={this.state.user.area}
-                      username={this.state.user.username}
-                    />
+                   <ProfileCardOne/>
                   )}
                   {this.state.isLoading === true ? (
                     <MyLoader />
                   ) : (
                     <ProfileAbout bio={this.state.user.bio} title="About" />
                   )}
-                  {this.props.match.params.id === "me" ? (
+                  {this.props.match.params.id === "60f67bd86bce175ba8dec1d7" ? (
                     this.state.isLoading !== true ? (
-                      <YourDashBoardProfile title="Your Dashboard" />
+                      <>
+                       <div className='mt-3'>
+                          <ProfileStrength />
+                      </div>
+                      <div className='mt-3'>
+                        <YourDashboard />
+                      </div>
+                       </>
                     ) : (
                       <>
                         <MyLoader />
@@ -96,6 +95,7 @@ class ProfilePage extends Component {
               </Row>
             </Col>
           </Row>
+          <Messaging/>
         </Container>
       </>
     );

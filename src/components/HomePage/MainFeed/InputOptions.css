@@ -5,11 +5,16 @@
   padding: 10px;
 }
 .inputOptions:hover {
-  background-color: whitesmoke;
+  background-color: whitesmoke!important;
   border-radius: 10px;
 }
 .inputOptionsText {
+  color: gray!important;
   font-size: 14px;
   padding-left: 10px;
   align-items: center;
+}
+
+svg {
+  color: gray!important;
 }

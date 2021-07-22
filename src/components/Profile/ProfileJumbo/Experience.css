@@ -1,0 +1,22 @@
+.card{
+
+    border-radius: 12px!important;
+    position: relative;
+}
+
+.card-body{
+    padding-bottom: 0!important;
+}
+
+.logo-exp{
+    width: 40px;
+}
+
+.light-text {
+    color:#C1C1C1;
+}
+
+#plusIcon:hover{
+    border-radius: 50%;
+    background-color: #e4e4e4;
+}

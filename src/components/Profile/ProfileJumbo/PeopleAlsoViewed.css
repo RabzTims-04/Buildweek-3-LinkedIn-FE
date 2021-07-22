@@ -1,0 +1,36 @@
+.people_also_viewed {
+  background: white;
+  border-radius: 10px;
+  padding: 20px 30px;
+  max-width: 100%;
+  margin: 0;
+  margin-top: 45px;
+}
+.profils_container {
+  display: flex;
+  padding: 10px 0;
+}
+.profile_info {
+  padding: 0 20px;
+}
+.profils_container > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.name {
+  font-weight: bold;
+  font-size: small;
+}
+.connect_button {
+  color: gray;
+  border: 2px solid gray;
+  padding: 5px 20px;
+  border-radius: 60px;
+  background-color: white;
+}
+.connect_button:hover {
+  border: 2px solid rgb(73, 73, 73);
+  background-color: rgb(165, 165, 165);
+  color: rgb(255, 255, 255);
+}

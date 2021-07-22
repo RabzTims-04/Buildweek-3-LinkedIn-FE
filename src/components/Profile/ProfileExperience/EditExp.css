@@ -1,0 +1,16 @@
+#edit2btn:hover{
+   z-index: 1;
+   border-radius: 50%;
+   background-color: #EBEBEB;
+}
+
+.my-modal {
+   width: 60vw;   /* Occupy the 90% of the screen width */
+   max-width: 90vw;
+
+}
+
+.modal-Body{
+   height: 70vh;
+   overflow-y: scroll;
+}

@@ -86,8 +86,9 @@ class MyNav extends React.Component {
             </a>
           </div>
           <div className="myNavOptions">
-            <Avatar src={myPic} style={{ height: "30px", width: "30px" }} />
-            <a className="myNavOptionsTitle" href="profile/me">
+            <img src={this.props.user && this.props.user.image} style={{ height: "30px", width: "30px" }} alt="user pic" />
+           {/*  <Avatar src={myPic}  /> */}
+            <a className="myNavOptionsTitle" href="/profile/60f67bd86bce175ba8dec1d7">
               Me
               <span>
                 <svg

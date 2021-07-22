@@ -8,31 +8,22 @@ import "./NetworkFeed.css";
 import {XLg} from "react-bootstrap-icons";
 import {Nav} from "react-bootstrap";
 
+const {REACT_APP_BACKEND_URL} = process.env;
 const NetworkFeed = () => {
-  const token =
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
 
   const [profiles, setProfiles] = useState([]);
   const getProfile = async () => {
     console.log("FIRST BEER");
     try {
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/",
-        {
-          method: "GET",
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+        `${REACT_APP_BACKEND_URL}/profile`);
 
       console.log(response);
 
       let profiles = await response.json();
       console.log(profiles);
 
-      setProfiles(profiles.slice(1).slice(40));
+      setProfiles(profiles);
       console.log("Profiles", profiles);
     } catch (error) {
       console.log(error);

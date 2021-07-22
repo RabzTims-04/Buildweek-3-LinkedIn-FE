@@ -6,9 +6,8 @@ import {Button} from "@material-ui/core";
 import MyLoader from "../../Loaders/MyLoader";
 import MainFeed2 from "./MainFeed2";
 
+const {REACT_APP_BACKEND_URL} = process.env;
 const GetPosts = (props) => {
-  const token =
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
 
   const [posts, setPosts] = useState([]);
   const [quickRead, setQuickRead] = useState(false);
@@ -24,23 +23,14 @@ const GetPosts = (props) => {
   const getData = async () => {
     console.log("HI THERE");
     try {
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/posts/",
-        {
-          method: "GET",
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      let response = await fetch(`${REACT_APP_BACKEND_URL}/posts`);
 
       console.log(response);
 
       let posts = await response.json();
       console.log(posts);
 
-      setPosts(posts.slice(1).slice(-50));
+      setPosts(posts);
       console.log("Posts", posts);
     } catch (error) {
       console.log(error);
@@ -111,7 +101,7 @@ const GetPosts = (props) => {
             .map((post) => {
               return (
                 <div>
-                  <MainFeed key={post._id} post={post} />
+                  <MainFeed user={props.user} key={post._id} post={post} />
                 </div>
               );
             })

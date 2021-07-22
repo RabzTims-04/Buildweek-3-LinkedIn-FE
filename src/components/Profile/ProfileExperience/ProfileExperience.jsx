@@ -5,6 +5,8 @@ import "../ProfilePage.css";
 import ProfileExperienceSingle from "./ProfileExperienceSingle";
 import ProfileExperiencePost from "./ProfileExperiencePost";
 import {withRouter} from "react-router-dom";
+
+const {REACT_APP_BACKEND_URL} = process.env;
 class ProfileExperience extends Component {
   state = {
     selected: null,
@@ -17,20 +19,12 @@ class ProfileExperience extends Component {
   };
   componentDidMount = async () => {
     const userId =
-      this.props.match.params.id === "me"
-        ? "60c8aef9a3a3d700151cb054"
+      this.props.match.params.id === "60f67bd86bce175ba8dec1d7"
+        ? "60f67bd86bce175ba8dec1d7"
         : this.props.match.params.id;
-    const endpointGetMyProfile = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    const bearerTokenHedri = `Bearer ${token}`;
+    const endpointGetMyProfile = `${REACT_APP_BACKEND_URL}/profile/${userId}/experiences`;
     try {
-      let getResponse = await fetch(endpointGetMyProfile, {
-        headers: {
-          Authorization: bearerTokenHedri,
-          "Content-Type": "application/json",
-        },
-      });
+      let getResponse = await fetch(endpointGetMyProfile);
 
       let myExpData = await getResponse.json();
       console.log("myExperience", myExpData);
@@ -47,7 +41,7 @@ class ProfileExperience extends Component {
         <Card className="my-2" id="expProfile">
           <Card.Title id="expProfile_title" className="mt-3 mb-3 mx-3">
             <span>{this.props.title}</span>
-            {this.props.match.params.id === "me" ? (
+            {this.props.match.params.id === "60f67bd86bce175ba8dec1d7" ? (
               <Plus
                 id="pencil-icon"
                 onClick={() => this.setState({showModalExpPost: true})}

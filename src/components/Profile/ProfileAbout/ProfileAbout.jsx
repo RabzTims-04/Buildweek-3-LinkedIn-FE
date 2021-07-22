@@ -5,6 +5,8 @@ import {Pencil} from "react-bootstrap-icons";
 import ProfileAboutUpdater from "./AboutProfileUpdater";
 import "../ProfilePage.css";
 import {withRouter} from "react-router";
+
+const { REACT_APP_BACKEND_URL } = process.env
 class ProfileAbout extends Component {
   state = {
     showModalAbout: false,
@@ -18,7 +20,7 @@ class ProfileAbout extends Component {
         <Card className="my-2" id="aboutProfile">
           <Card.Title id="aboutProfile_title" className="mt-1">
             <span>{this.props.title}</span>
-            {this.props.match.params.id === "me" ? (
+            {this.props.match.params.id === "60f67bd86bce175ba8dec1d7" ? (
               <Pencil
                 id="pencil-icon"
                 onClick={() => this.setState({showModalAbout: true})}

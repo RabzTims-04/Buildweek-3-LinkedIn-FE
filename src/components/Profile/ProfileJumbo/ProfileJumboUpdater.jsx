@@ -1,21 +1,18 @@
 import {Component} from "react";
 import {Modal, Form, Row, Col, Button} from "react-bootstrap";
 
+const {REACT_APP_BACKEND_URL} = process.env;
 export default class ProfileJumboUpdater extends Component {
   state = {user: {}};
 
   handleProfileUpdate = async (e) => {
     // const userId = "60c73bf1291930001560aba3";
-    const endpointPUTprofile = `https://striveschool-api.herokuapp.com/api/profile/`;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    const bearerTokenHedri = `Bearer ${token}`;
+    const endpointPUTprofile = `${REACT_APP_BACKEND_URL}/profile/`;
 
     try {
       let response = await fetch(endpointPUTprofile, {
         method: "PUT",
         headers: {
-          Authorization: bearerTokenHedri,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(this.state.user),

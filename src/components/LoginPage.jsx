@@ -24,30 +24,25 @@ class LoginPage extends Component {
   };
 
   checkUser = () => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    if (this.state.value === "Helena") {
+    if (this.state.value === "Rabz") {
       this.setState({
         user: {
-          username: "Helena",
-          bearerToken: `${token}`,
-          userId: "60c73d8b291930001560aba5",
+          username: "Rabz",
+          userId: "60f67bd86bce175ba8dec1d7",
         },
       });
       this.props.history.push("/home");
-    } else if (this.state.value === "Kapil") {
+    } else if (this.state.value === "Carl") {
       this.setState({
         user: {
-          username: "Kapil",
-          bearerToken: `${token}`,
-          userId: "60c73d8b291930001560aba5",
+          username: "Carl",
+          userId: "",
         },
       });
       this.props.history.push("/home");
     } else if (this.state.user === "Kristian") {
       this.setState({
         user: {
-          bearerToken: "",
           userId: "",
         },
       });
@@ -66,9 +61,9 @@ class LoginPage extends Component {
               <form onSubmit={this.handleSubmit}>
                 <label>
                   <select value={this.state.value} onChange={this.handleChange}>
-                    <option value="Helena">Select User</option>
-                    <option value="Helena">Helena</option>
-                    <option value="Kapil">Kapil</option>
+                    <option value="Rabz">Select User</option>
+                    <option value="Rabz">Rabz</option>
+                    <option value="Carl">Carl</option>
                     <option value="Kristian">Kristian</option>
                   </select>
                 </label>

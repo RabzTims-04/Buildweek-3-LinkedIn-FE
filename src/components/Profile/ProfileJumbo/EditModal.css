@@ -1,0 +1,31 @@
+.my-modal {
+    width: 60vw;   /* Occupy the 90% of the screen width */
+    max-width: 90vw;
+
+}
+
+.modal-Body{
+    height: 70vh;
+    overflow-y: scroll;
+}
+
+.savebtn{
+    width: 80px;
+    background-color: #0A66C2;
+}
+
+#editbtn{
+    padding: 8px;
+    height: 40px;
+}
+
+#editbtn:hover{
+    border: 1px transparent grey;
+    border-radius: 50%;
+    background-color: #EBEBEB;
+   
+}
+
+svg{
+    display: inline!important;
+}

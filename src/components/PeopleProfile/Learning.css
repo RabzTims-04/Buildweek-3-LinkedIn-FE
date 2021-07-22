@@ -1,0 +1,68 @@
+.learning {
+  background: white;
+  border-radius: 10px;
+  padding: 0 20px;
+  padding-top: 30px;
+  max-width: 100%;
+  margin: 0;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.learning_title {
+  display: flex;
+  align-items: center;
+}
+.learning_title > img {
+  width: 25px;
+}
+.learning_title > div {
+  font-size: 17px;
+  padding-left: 10px;
+}
+.add_skills {
+  font-size: 18px;
+  padding-left: 10px;
+}
+.videos_container {
+  margin-top: 10px;
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid gray;
+}
+.video > img {
+  width: 100px;
+  height: 60px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.video_info {
+  padding: 0 10px;
+}
+.video_title {
+  font-weight: 600;
+  font-size: 17px;
+  padding: 10px;
+}
+.video_views {
+  padding: 0 10px;
+  color: gray;
+}
+.show_more {
+  text-align: center;
+  padding: 10px 30px;
+  background: rgb(255, 253, 253);
+  width: calc(100% + 40px);
+  align-self: center;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: bold;
+  color: gray;
+  border-top: 1px solid gray;
+}
+.show_more:hover {
+  background-color: lightgray;
+}

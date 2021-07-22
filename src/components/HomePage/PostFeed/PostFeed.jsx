@@ -1,4 +1,4 @@
-import {Component} from "react";
+import {Component, createRef} from "react";
 import {
   CardImage,
   Youtube,
@@ -20,128 +20,79 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./PostFeed.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 // import FeedPostImage from "./FeedPostImage";
-
+const {REACT_APP_BACKEND_URL} = process.env
 class PostFeed extends Component {
+
+  ref = createRef()
+
   state = {
     feed: {
-      text: "",
+      text: '',
+      user:"60f67bd86bce175ba8dec1d7"
     },
     upload: false,
     close: true,
-    image: null,
     post_id: "60cb3cd5956ccd00158537bb", // subsitute post_id; null text input case;
   };
+  
 
-  componentDidMount() {
-    console.log(
-      this.props.user,
-      "is the id and ",
-      this.props.isLoading,
-      "is the Loading"
-    );
-  }
+    _addPOST = async (e)=>{
+      console.log(e.key);
+        if(e.key ==='Enter'){
+            let formData = new FormData()   
+            formData.append('post', this.state.feed.image) 
+            e.preventDefault()      
+        const url =`${REACT_APP_BACKEND_URL}/posts/`
+        try{
+            const response = await fetch(url,{
+                method:'POST',
+                body: JSON.stringify({
+                    text:this.state.feed.text,
+                    user:this.state.feed.user,
+                }),
+                headers:{
+                    'Content-Type':'application/json'
+                }                
+            })
+            const post = await response.json()
+            const postid= await post._id
+            console.log(postid);                                
+            console.log(this.state.feed); 
+            console.log(formData);  
+            console.log(formData.get('post')); 
+            if(response.ok){
+                if(this.state.feed.image){
+                    try {
+                        const imgresp = await fetch(`${url}${postid}/image`,{
+                            method:'POST',
+                            body:formData,
+                        })
+                        console.log(imgresp);
+                    } catch (error) {
+                        console.log(error);
+                        
+                    }
+                }            
 
-  fetch = () => {
-    console.log("Data is there to be POST");
-  };
-
-  // React Boostrap Modal class toggling
-  handleClose = () => {
-    console.log("Handle close been clicked!");
-    this.setState({upload: false});
-  };
-
-  // Form Data change state; Upload images;
-  onFileChange = (e) => {
-    this.setState({
-      image: e.target.files[0],
-    });
-  };
-
-  // Main function via Modal Submit
-
-  uploadPostImage = async (e) => {
-    // when the user submits the button => the text feed written is posted and then the id of the posted text is used again
-    // to post an image via this funcnction after the SubmitPost function
-    await this.submitPost();
-    // post id updated.
-    console.log("The image needs to be posted"); // 1
-    this.handleClose();
-    const formData = new FormData();
-    formData.append("post", this.state.image);
-    const url = `https://striveschool-api.herokuapp.com/api/posts/${this.state.post_id}`;
-    console.log(
-      "For the image to load the post id is ::: ",
-      this.state.post_id
-    );
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    const bearer_token = `Bearer ${token}`;
-    try {
-      let response = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: bearer_token,
-        },
-        body: formData,
-      });
-
-      let data = await response.json();
-      console.log("The data recieved is: ", data);
-      alert("Successfully posted");
-    } catch (error) {
-      console.log("error in the image posting : ", error);
-    }
-  };
-
-  //   Submit post starts;
-  submitPost = async (e) => {
-    e ? e.preventDefault() : console.log(" I am been touched");
-
-    try {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/posts/",
-        {
-          method: "POST",
-          body: JSON.stringify(this.state.feed),
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+                alert('posted')
+                console.log('post',post);
+                /* this.props.newPost(post) */
+                this.setState({
+                  ...this.state,
+                  feed: {
+                    text: '',
+                    user:"60f67bd86bce175ba8dec1d7"
+                  },
+                })
+              }
+           else{
+                console.log('error')
+            }    
+        }catch(error){
+            console.log(error);
         }
-      )
-        .then((data) => data.json())
-        .then((result) => {
-          console.log(result, "The text has been updated");
-          console.log("text posted Image left and check it down");
-          return result;
-        })
-        .then((finalWork) => {
-          this.setState({
-            feed: {
-              text: "",
-            },
-            post_id: finalWork._id,
-          });
-          console.log(
-            "Check the post id: ",
-            this.state.post_id,
-            "is same as ",
-            finalWork._id
-          );
-          console.log("I am being worked first");
-        });
-    } catch (error) {
-      console.log(error);
-      console.log("There is some error");
     }
-  };
-
-  checkStateUpload = () => {
-    this.setState({upload: this.state.upload ? false : true});
-  };
+    }
 
   render() {
     return (
@@ -149,10 +100,7 @@ class PostFeed extends Component {
         <Card className="pb-0" id="post_card">
           <Card.Body id="post_card_body">
             <Form
-              onSubmit={(e) => {
-                console.log("ready to be clicked!");
-                this.submitPost(e);
-              }}
+              
             >
               <div id="testest" className="pb-0">
                 <Image
@@ -170,82 +118,65 @@ class PostFeed extends Component {
                   onChange={(e) => {
                     console.log(e.target.value);
                     return this.setState({
-                      feed: {text: e.target.value},
+                      ...this.state,
+                      feed: {
+                        ...this.state.feed,
+                        text: e.target.value
+                      },
                     });
                   }}
+                  onKeyDown={(e)=>this._addPOST(e)}
                 />
               </div>
             </Form>
 
+            {/*  */}
+
             <div id="buttonContainer">
-              <Button onClick={this.checkStateUpload}>
-                <CardImage id="post_icon" style={{color: "#70b5f9"}} />
+            <label className="p-0 d-flex m-0" for="postimg">
+                                
+                               
+                                <input 
+                                    onClick={(e)=> {e.stopPropagation()
+                                    return true}}
+                                   hidden
+                                    type="file"
+                                    title="choose"
+                                    id="postimg"
+                                    ref={this.ref}
+                                /* id="image" */
+                                    onChange={(e) => {this.setState({
+                                      ...this.state,
+                                        feed:{
+                                          ...this.state.feed, 
+                                            image: e.target.files[0]}
+                                })
+                                console.log(e.target.files[0])}}
+                                
+                                />
+                                 </label>
+              <Button onClick={()=> this.ref.current.click()}>
+                <CardImage className="post_icon" id="photo" style={{color: "#70b5f9"}} />
                 Photos
               </Button>
 
               <Button onClick={this.checkStateUpload}>
-                <Youtube id="post_icon" style={{color: "#7fc15e"}} />
+                <Youtube className="post_icon" id="video" style={{color: "#7fc15e"}} />
                 Videos
               </Button>
 
               <Button onClick={this.checkStateUpload}>
-                <CalendarDate id="post_icon" style={{color: "#e7a33e"}} />
+                <CalendarDate className="post_icon" id="event" style={{color: "#e7a33e"}} />
                 Events
               </Button>
               <Button onClick={this.checkStateUpload}>
-                <Newspaper id="post_icon" style={{color: "#f5987e"}} />
+                <Newspaper className="post_icon" id="article" style={{color: "#f5987e"}} />
                 Write Article
               </Button>
             </div>
           </Card.Body>
         </Card>
 
-        {/* Modal section to upload images for the Feeds starts */}
-        {this.state.upload ? (
-          <Modal
-            show={this.state.upload}
-            onHide={this.state.close}
-            id="modal-post"
-          >
-            <Modal.Header
-              className="d-flex justify-content-center"
-              style={{backgroundColor: "black"}}
-            >
-              <Modal.Title style={{color: "white"}}>
-                Place to upload the image
-              </Modal.Title>
-            </Modal.Header>
-            <div className="d-flex justify-content-center">
-              <Form
-                className="pl-3"
-                onSubmit={(e) => {
-                  this.uploadPostImage(e);
-                }}
-              >
-                <Modal.Body>
-                  <Form.Group>
-                    <Form.Control
-                      id="image"
-                      type="file"
-                      placeholder="Upload image"
-                      onChange={this.onFileChange}
-                    />
-                  </Form.Group>
-                </Modal.Body>
-              </Form>
-            </div>
-            <Modal.Footer className="d-flex justify-content-between">
-              <Button variant="light" onClick={this.handleClose}>
-                Discard
-              </Button>
-              <Button variant="success" onClick={this.uploadPostImage}>
-                Upload Image
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        ) : (
-          <></>
-        )}
       </>
     );
   }

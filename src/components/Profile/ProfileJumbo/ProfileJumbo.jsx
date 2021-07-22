@@ -35,7 +35,7 @@ class ProfileJumbo extends Component {
             <Image src={banner} />
           </div>
           <Card.Body>
-            {this.props.match.params.id === "me" ? (
+            {this.props.match.params.id === "60f67bd86bce175ba8dec1d7" ? (
               <div
                 id="jumboProfile_img"
                 onClick={() => this.setState({ showProfilePicModal: true })}
@@ -52,7 +52,7 @@ class ProfileJumbo extends Component {
               <h5>
                 {name} {surname}
               </h5>
-              {this.props.match.params.id === "me" ? (
+              {this.props.match.params.id === "60f67bd86bce175ba8dec1d7" ? (
                 <Pencil
                   id="pencil-icon"
                   onClick={() => this.setState({ showModalJumbo: true })}

@@ -8,7 +8,7 @@ import * as Icon from "react-bootstrap-icons";
 const MyFooter = () => {
   return (
     <>
-      <Container className="footerBody">
+      <Container className="footerBody mt-5">
         <Row className="footerLogo">
           <img src={LinkedInLogo} />
         </Row>

@@ -1,6 +1,7 @@
 import {Component} from "react";
 import {Modal, Form, Row, Col, Button} from "react-bootstrap";
 
+const {REACT_APP_BACKEND_URL} = process.env;
 export default class ProfileExpUpdater extends Component {
   state = {
     experience: {
@@ -18,16 +19,13 @@ export default class ProfileExpUpdater extends Component {
     console.log("Gonna submit Exp now");
     console.log(this.state.experience);
     let expId = this.props.idExp;
-    const userId = "60c73bf1291930001560aba3";
-    const endpointPUTExp = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    const bearerTokenHedri = `Bearer ${token}`;
+    const userId = "60f67bd86bce175ba8dec1d7";
+    const endpointPUTExp = `${REACT_APP_BACKEND_URL}/profile/${userId}/experiences/${expId}`;
+
     try {
       let response = await fetch(endpointPUTExp, {
         method: "PUT",
         headers: {
-          Authorization: bearerTokenHedri,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(this.state.experience),
@@ -62,16 +60,12 @@ export default class ProfileExpUpdater extends Component {
     console.log("Gonna submit Exp now");
     console.log(this.state.experience);
     let expId = this.props.idExp;
-    const userId = "60c73bf1291930001560aba3";
-    const endpointDELETEexp = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    const bearerTokenHedri = `Bearer ${token}`;
+    const userId = "60f67bd86bce175ba8dec1d7";
+    const endpointDELETEexp = `${REACT_APP_BACKEND_URL}/profile/${userId}/experiences/${expId}`;
     try {
       let response = await fetch(endpointDELETEexp, {
         method: "DELETE",
         headers: {
-          Authorization: bearerTokenHedri,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(this.state.experience),

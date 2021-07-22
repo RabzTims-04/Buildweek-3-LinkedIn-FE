@@ -17,6 +17,7 @@ import {
 } from "react-bootstrap";
 import {useState} from "react";
 
+const { REACT_APP_BACKEND_URL } = process.env;
 const MainFeed = ({post}) => {
   const [edited, setEdited] = useState(false);
   const [postText, setPostText] = useState(post.text);
@@ -25,7 +26,7 @@ const MainFeed = ({post}) => {
   // function to edit post
 
   function EditPost() {
-    if (post.user._id === "60c8aef9a3a3d700151cb054") {
+    if (post.user._id === "60f67bd86bce175ba8dec1d7") {
       setEdited(!edited);
     } else {
       alert("You can't Edit someone's post!!!");
@@ -36,19 +37,16 @@ const MainFeed = ({post}) => {
     console.log("Editing Final", post._id);
 
     try {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
       console.log(
-        `https://striveschool-api.herokuapp.com/api/posts/${post._id}`
+        `${REACT_APP_BACKEND_URL}/posts/${post._id}`
       );
       let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/posts/${post._id}`,
+        `${REACT_APP_BACKEND_URL}/posts/${post._id}`,
         {
           method: "PUT",
           body: JSON.stringify(obj),
           headers: {
             "Content-type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -69,23 +67,17 @@ const MainFeed = ({post}) => {
 
   async function DeletePost() {
     console.log("Delete the post", post._id);
-    if (post.user._id === "60c8aef9a3a3d700151cb054") {
+    if (post.user._id === "60f67bd86bce175ba8dec1d7") {
       try {
         console.log(
-          `https://striveschool-api.herokuapp.com/api/posts/${post._id}`
+          `${REACT_APP_BACKEND_URL}/posts/${post._id}`
         );
-        const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
 
         let response = await fetch(
-          `https://striveschool-api.herokuapp.com/api/posts/${post._id}`,
+          `${REACT_APP_BACKEND_URL}/posts/${post._id}`,
           {
             method: "DELETE",
             // body: JSON.stringify(this.state.feed),
-            headers: {
-              // "Content-type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
           }
         );
         alert("The post has been deleted! ");
@@ -119,7 +111,7 @@ const MainFeed = ({post}) => {
 
         <p className="px-3">{post.text.slice(0, 100)}</p>
         <hr className="p-0 m-0"></hr>
-        {post.user._id === "60c8aef9a3a3d700151cb054" ? (
+        {post.user._id === "60f67bd86bce175ba8dec1d7" ? (
           <Accordion.Toggle
             id="accordion_toggle_button"
             as={Button}

@@ -1,7 +1,7 @@
 import {Component, createRef, React} from "react";
 import {Modal, Form, Row, Col, Button, Image} from "react-bootstrap";
 import {CameraFill} from "react-bootstrap-icons";
-
+const {REACT_APP_BACKEND_URL} = process.env;
 export default class ProfilePicUpdater extends Component {
   state = {user: {}};
 
@@ -13,17 +13,11 @@ export default class ProfilePicUpdater extends Component {
     const formData = new FormData();
     formData.append("profile", this.state.user.image);
     // const userId = "60c8aef9a3a3d700151cb054";
-    const endpointPUTprofile = `https://striveschool-api.herokuapp.com/api/profile/me/picture`;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
-    const bearerTokenHedri = `Bearer ${token}`;
+    const endpointPUTprofile = `${REACT_APP_BACKEND_URL}/profile/60f67bd86bce175ba8dec1d7/picture`;
 
     try {
       let response = await fetch(endpointPUTprofile, {
         method: "POST",
-        headers: {
-          Authorization: bearerTokenHedri,
-        },
         body: formData,
       });
       console.log(response.ok);

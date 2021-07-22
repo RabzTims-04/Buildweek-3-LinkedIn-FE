@@ -7,7 +7,7 @@ import SidebarPerson from "./SidebarPerson";
 import ProfilePictureLoader from "../../Loaders/ProfilePictureLoader";
 
 // get the fontawesome imports
-
+const {REACT_APP_BACKEND_URL} = process.env;
 class Sidebar extends Component {
   state = {
     profiles: [],
@@ -15,16 +15,8 @@ class Sidebar extends Component {
 
   componentDidMount = async () => {
     try {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGFmODNiYmJlOWIxNTAwMTU1MDZlMTgiLCJpYXQiOjE2MjU3NDg1MjAsImV4cCI6MTYyNjk1ODEyMH0.gz9X9tcreCrPoh2HafMSBJLP6ge_-UgPhn-LejUdyJc";
       let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        `${REACT_APP_BACKEND_URL}/profile`);
       let data = await response.json();
       let result = console.log(data, "This is the result of the API");
       //   Updating the state with the profiles
