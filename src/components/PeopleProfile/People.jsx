@@ -7,6 +7,7 @@ import { AiOutlineStar } from 'react-icons/ai';
 import { AiOutlineCheck } from 'react-icons/ai';
 import Learning from './Learning';
 import Messaging from '../Profile/Messaging';
+import ProfileStrength from '../Profile/ProfileStrength';
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
@@ -24,7 +25,7 @@ const People = ({ match }) => {
   useEffect(() => {
     fetch(`${REACT_APP_BACKEND_URL}/profile/`)
       .then((response) => response.json())
-      .then((data) => setpeople(data.slice(0, 11)));
+      .then((data) => setpeople(data));
   }, []);
   //console.log(people);
 
@@ -109,33 +110,7 @@ const People = ({ match }) => {
               </Card>
             </div>
             <div className='mt-3'>
-              <Card className='rounded'>
-                <Card.Body>
-                  <Form>
-                    <Form.Group controlId='formBasicRange'>
-                      <Form.Label>
-                        <h5>
-                          <span className='text-muted'>Profile Strength:</span>{' '}
-                          Intermediate
-                        </h5>
-                      </Form.Label>
-                      <Row className='px-4 pb-5' type='range'>
-                        <Col className='customRange'></Col>
-                        <Col className='customRange'></Col>
-                        <Col className='customRange'></Col>
-                        <Col className='customRange'></Col>
-                        <Col className='customRange'></Col>
-                        <Col className='customRange'>
-                          <AiOutlineCheck className='tick' size={20} />
-                        </Col>
-                        <Col className='customRangeLast'>
-                          <AiOutlineStar className='star' size={20} />
-                        </Col>
-                      </Row>
-                    </Form.Group>
-                  </Form>
-                </Card.Body>
-              </Card>
+              <ProfileStrength/>
             </div>
             <div className='mt-3'>
               <Card className='rounded dashboard-card'>
@@ -304,43 +279,42 @@ const People = ({ match }) => {
             </div>
             <div className='mt-3'>
               {' '}
-              <Card className='rounded'>
-                <Card.Body>
-                  <Row className='justify-content-between'>
-                    <Col>
-                      <h6>Experience</h6>
-                    </Col>
-                    <Col className='text-right pr-0'></Col>
-                  </Row>
-                  <Row className='pl-2'>
-                    <div className='dash2 d-flex flex-column w-100'>
-                      <Col className='d-flex p-0 mt-3'>
-                        <Col sm={1} className='pr-0 pl-1'>
-                          <img
-                            src='https://media-exp1.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_100_100/0/1595530301220?e=1631750400&v=beta&t=epCwObuNQ7fgzYahnWONi2D1ghbJkdq0i3EBX2oZiTE'
-                            alt='logo'
-                            className=' img-fluid '
-                          />
-                        </Col>
-                        <Col
-                          className='p-0 ml-4 '
-                          style={{ borderBottom: '1px solid lightgrey' }}
-                        >
-                          <Link to=''>
-                            <div className='d-flex flex-row p-0 m-0 justify-content-between'>
-                              <h6 className='m-0 p-0 text-dark'>Apple</h6>
-                            </div>
-                            <p className='text-muted m-0'>apple</p>
-                            <p className='light-text  m-0'>apple</p>
-                            <p className='light-text  m-0'>apple</p>
-                          </Link>
-                          <p className='mt-1'>apple</p>
-                        </Col>
-                      </Col>
-                    </div>
-                  </Row>
-                </Card.Body>
-              </Card>
+              <Card className='rounded'>        
+                    <Card.Body>
+                        <Row className="justify-content-between">
+                            <Col>
+                                 <h5>Experiences</h5>
+                            </Col>
+                            <Col className="text-right pr-0">   
+                            </Col>
+                        </Row> 
+
+                        <Row className="pl-2">
+                        <div className="dash2 d-flex flex-column w-100">
+                            {Profile && Profile.experiences?
+                            Profile.experiences.map((exp,i) => 
+                                <Col key={exp._id} className="d-flex p-0 mt-3">
+                                    <Col sm={1} className="pr-0 pl-1">
+                                        <img src={exp.image} alt="logo" className=" img-fluid "/>
+                                    </Col> 
+                                    <Col className="p-0 ml-4 " style={{borderBottom:'1px solid lightgrey'}}>
+                                        <Link>
+                                            <div className="d-flex flex-row p-0 m-0 justify-content-between">                                         
+                                                <h6 className="m-0 p-0 text-dark">{exp.role}</h6>
+                                            </div>
+                                            <p className="text-muted m-0">{exp.company}</p>
+                                            <p className="light-text  m-0">{new Date(exp.startDate).toLocaleDateString()} - {new Date(exp.endDate).toLocaleDateString()}</p>
+                                            <p className="light-text  m-0">{exp.area}</p>                                            
+                                        </Link>
+                                        <p className="mt-1">{exp.description}</p>
+                                    </Col>
+                                </Col>
+                                )
+                            :<p>Errror</p>}
+            </div>
+          </Row>
+        </Card.Body>
+      </Card>
             </div>
           </Col>
 
@@ -412,29 +386,25 @@ const People = ({ match }) => {
               </Row>
             </div>
             <div className='people_also_viewed'>
-              <p style={{ fontSize: '1.5em', fontWeight: '500' }}>
-                People also viewed
-              </p>
-              {people.slice(3, 10).map((p) => (
-                <div className='profils_container' key={p._id}>
-                  <img src={p.image} alt={p.name + ' ' + p.surname} />
-                  <div className='profile_info'>
-                    <Link to={'/profile/' + p.name + '/' + p._id}>
-                      <div className='name'>{p.name + ' ' + p.surname}</div>
-                      <div
-                        className='speciality text-muted'
-                        style={{ fontSize: '0.8em' }}
-                      >
-                        {p.title}
-                      </div>
-                    </Link>
-                    <button className='connect_button px-2 py-0 mt-1'>
-                      Connect
-                    </button>
+              <p style={{ fontSize: '1.5em', fontWeight: '500' }}>People also viewed</p>
+                {people.map((p) => (
+                  <div className='profils_container' key={p._id}>
+                    <img src={p.image} alt={p.name + ' ' + p.surname} />
+                    <div className='profile_info'>
+                      <Link to={'/profile/' + p.name + '/' + p._id}>
+                        <div className='name'>{p.name + ' ' + p.surname}</div>
+                        <div
+                          className='speciality text-muted'
+                          style={{ fontSize: '0.8em' }}
+                        >
+                          {p.title}
+                        </div>
+                      </Link>
+                      <button className='connect_button px-2 py-0 mt-1'>Connect</button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
             <Learning />
           </Col>
         </Row>

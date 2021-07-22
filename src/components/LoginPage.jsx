@@ -12,10 +12,20 @@ import {
 import {Redirect} from "react-router-dom";
 
 class LoginPage extends Component {
-  state = {value: "select user", bearerToken: "", userId: ""};
+  state = {
+    value: "select user", 
+    bearerToken: "", 
+    userId: "",
+    user:""
+  };
 
   handleChange = (event) => {
-    this.setState({value: event.target.value});
+    console.log(event.target.value)
+    console.log(this.props.user);;
+    this.setState({
+      value: event.target.value
+    });
+    this.props.change(event.target.value)
   };
 
   handleSubmit = (event) => {
@@ -56,7 +66,15 @@ class LoginPage extends Component {
           <Row>
             <Col xs={4}></Col>
             <Col xs={4}>
-              <Image src={"https://picsum.photos/200"} id="loginPage_img" />
+              <Image src={
+                this.state.value === "Rabz" 
+              ? this.props.user 
+              :this.state.value === "Carl"
+              ? this.props.carl.image
+              :this.state.value === "Kristian"
+              ?this.props.kristian.image 
+              : "https://picsum.photos/200"
+              } id="loginPage_img" />
               <h2>{this.state.value}</h2>
               <form onSubmit={this.handleSubmit}>
                 <label>
