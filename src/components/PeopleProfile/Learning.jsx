@@ -15,9 +15,9 @@ const Learning = () => {
         Add new skills with these courses, free for 24 hours
       </div>
       <div className='videos_container'>
-        <div className='video'>
+        <div className='video pt-3'>
           <img
-            src='https://media-exp1.licdn.com/dms/image/C4E0DAQEYWX58tVMaQw/learning-public-crop_60_100/0/1576687713263?e=1623801600&v=beta&t=hw8smMEWWxnVWBeGPQPMUp4hikk9hYW877-ZhbeU13Q'
+            src='https://www.theparticipanteffect.com/sites/default/files/users/nikolasadams/WP_Diversify.png'
             alt=''
           />
         </div>
@@ -27,7 +27,7 @@ const Learning = () => {
         </div>
       </div>
       <div className='videos_container'>
-        <div className='video'>
+        <div className='video pt-3'>
           <img
             src='https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg'
             alt=''
@@ -41,7 +41,7 @@ const Learning = () => {
         </div>
       </div>
       <div className='videos_container'>
-        <div className='video'>
+        <div className='video pt-3'>
           <img
             src='https://images.ctfassets.net/hrltx12pl8hq/3MbF54EhWUhsXunc5Keueb/60774fbbff86e6bf6776f1e17a8016b4/04-nature_721703848.jpg?fit=fill&w=480&h=270'
             alt=''

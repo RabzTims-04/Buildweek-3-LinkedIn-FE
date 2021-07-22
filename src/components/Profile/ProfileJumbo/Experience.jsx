@@ -77,14 +77,6 @@ class Experience extends Component {
     }
 
     ageFunc =(dataDate) =>{
-        /* let today = new Date('2021-02-13T00:00:00.000Z')
-        let date = today.getDate()
-        let month = today.getMonth()
-        let year = today.getFullYear()
-        console.log('fulldate',today);
-        console.log('date', date);
-        console.log('month', month);
-        console.log('year', year); */
         let date = new Date(dataDate).toLocaleDateString("sq-AL",{ year: 'numeric', month: '2-digit', day: '2-digit' })
         console.log('date',date);
         return date
@@ -137,74 +129,6 @@ class Experience extends Component {
                                 </Col>
                                 )
                             :<p>Errror</p>}
-
-                                 {/* <Col className="d-flex p-0 mt-3">
-
-                                    <Col sm={1} className="pr-0 pl-1">
-                                        <img src="https://media-exp1.licdn.com/dms/image/C4D0BAQHiNSL4Or29cg/company-logo_100_100/0/1519856215226?e=1631750400&v=beta&t=V4NBm-NohF2bjS1mrIlkZq3-gKb49SpeBtV80UPFSR8" alt="logo" className=" img-fluid "/>
-                                    </Col> 
-                                    <Col className="p-0 ml-4 " style={{borderBottom:'1px solid lightgrey'}}>
-                                        <Link>
-                                            <div className="d-flex justify-content-between">
-                                               <div>
-                                                 <h6 className="m-0 text-dark">Role</h6>
-                                               </div>
-                                               <div className="">
-                                                   icon
-                                               </div>
-                                            </div>
-                                            <p className=" text-muted m-0">Company</p>
-                                            <p className="light-text  m-0">Start date</p>
-                                            <p className="light-text  m-0">area</p>                                            
-                                        </Link>
-                                        <p className="mt-1">description</p>
-                                    </Col>
-                                </Col>
-
-                                <Col className="d-flex p-0  mt-3">
-                                    <Col sm={1} className="pr-0 pl-1">
-                                        <img src="https://media-exp1.licdn.com/dms/image/C560BAQGrV5i4K9YdhQ/company-logo_100_100/0/1621582241755?e=1631750400&v=beta&t=ouxs0fFm2EgInSZZSUXFZlVk6zuidkmNwmG7y6YVuRw" alt="logo" className="img-fluid pt-1 pl-1"/>
-                                    </Col> 
-                                    <Col  className="p-0 ml-4" style={{borderBottom:'1px solid lightgrey'}}>
-                                        <Link>
-                                            <h6 className="m-0 text-dark">Role</h6>
-                                            <p className=" text-muted m-0">Company</p>
-                                            <p className=" light-text  m-0">Start data</p>
-                                            <p className=" light-text  m-0">area</p>
-                                        </Link>
-                                        <p className="mt-1">description</p>
-                                    </Col>
-                                </Col>
-
-                                <Col className="d-flex p-0  mt-3">
-                                    <Col sm={1} className="pr-0 pl-1" >
-                                        <img src="https://media-exp1.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_100_100/0/1595530301220?e=1631750400&v=beta&t=epCwObuNQ7fgzYahnWONi2D1ghbJkdq0i3EBX2oZiTE" alt="logo" className="img-fluid"/>
-                                    </Col> 
-                                    <Col className="p-0 ml-4"  style={{borderBottom:'1px solid lightgrey'}}>
-                                        <Link>
-                                            <h6 className="m-0 text-dark">Role</h6>
-                                            <p className=" text-muted m-0">Company</p>
-                                            <p className=" light-text  m-0">Start data</p>
-                                            <p className=" light-text  m-0">area</p>
-                                        </Link>
-                                        <p className="mt-1">description</p>
-                                    </Col>
-                                </Col> 
-
-                                <Col className="d-flex p-0  mt-3">
-                                    <Col sm={1} className="pr-0 pl-1">
-                                         <img src="https://media-exp1.licdn.com/dms/image/C560BAQE88xCsONDULQ/company-logo_100_100/0/1618231291419?e=1631750400&v=beta&t=BF5HxHU4xDnT0-hGNOzeWTxjcdx8SChkLzYJWfKA2TA" alt="logo" className="img-fluid"/>
-                                    </Col> 
-                                    <Col  className="p-0 ml-4">
-                                        <Link>
-                                            <h6 className="m-0 text-dark">Role</h6>
-                                            <p className=" text-muted m-0">Company</p>
-                                            <p className=" light-text  m-0">Start data</p>
-                                            <p className=" light-text  m-0">area</p>
-                                        </Link>
-                                        <p className="mt-1">description</p>
-                                    </Col>
-                                </Col>   */}
             </div>
           </Row>
         </Card.Body>

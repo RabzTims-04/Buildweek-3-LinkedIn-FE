@@ -48,7 +48,7 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
   }
 
   function EditCommentModel() {
-    if (post.user._id === "60f67bd86bce175ba8dec1d7") {
+    if (user._id === "60f67bd86bce175ba8dec1d7") {
       setCommentEdit(!commentEdit);
     } else {
       alert("You can't Edit someone's comment!!!");
@@ -392,7 +392,7 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
                 <Image
                   className="border-white mt-2 ml-2"
                   id="post_img"
-                  src={user.image}
+                  src={comment.user.image}
                   alt="user profilepic"
                   roundedCircle
                 />
@@ -401,13 +401,14 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
                   <div className="d-flex justify-content-between">
                   <div>
                     <a className="d-flex flex-column" href ="">
-                      <span className="user-name">{user.name} {user.surname}</span>
-                      <span className="text-muted">{user.title}</span>                                   
+                      <span className="user-name">{comment.user.name} {comment.user.surname}</span>
+                      <span className="text-muted">{comment.user.title}</span>                                   
                     </a> 
                   </div>
                     <div classname="">
                    
-                                <svg onClick={() => {
+                               {comment && comment.user._id === user._id 
+                               ?  <svg onClick={() => {
                                   console.log(comment.text);
                                   EditCommentModel() 
                                   setEditComments(comment.text)
@@ -415,7 +416,7 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
                                 }}
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" className=" mercado-match" width="24" height="24" focusable="false">
                                 <path d="M14 12a2 2 0 11-2-2 2 2 0 012 2zM4 10a2 2 0 102 2 2 2 0 00-2-2zm16 0a2 2 0 102 2 2 2 0 00-2-2z"></path>                                
-                                </svg>
+                                </svg> : <></>}
 
                                 {commentEdit ? (
                                     <Modal show={commentEdit} onHide={!commentEdit}>
