@@ -251,9 +251,11 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
     }else if(dateVal.getDate() === today.getDate() - 1){
       return "Yesterday"
     }else{
-      return dateVal.getDate().toLocaleDateString()
+      return dateVal.toDateString()
     }
   }
+
+  console.log(dateFunction(new Date(post.createdAt)));
 
   return (
     <Accordion defaultActiveKey="0">
@@ -267,7 +269,7 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
           </div>
           </div>
           <div classname="">
-            <p style={{fontSize:"x-small"}} className="text-muted ml-auto p-0 m-0">{dateFunction(new Date(post.createdAt))} </p>
+            <p style={{fontSize:"x-small"}} className="text-muted ml-auto p-0 m-0">{dateFunction(new Date(post.createdAt))}</p>
             
             <p style={{fontSize:"x-small"}} className="text-muted ml-auto p-0 mt-1">{new Date(post.createdAt).toLocaleTimeString()}</p>
           </div>
