@@ -403,13 +403,14 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
                   <div className="d-flex justify-content-between">
                   <div>
                     <a className="d-flex flex-column" href ="">
-                      <span className="user-name">{comment.user.name} {comment.user.surname}</span>
-                      <span className="text-muted">{comment.user.title}</span>                                   
+                        <span className="user-name">{comment.user.name} {comment.user.surname}</span>
+                        <span className="text-muted mt-0">{comment.user.title}</span>                                   
                     </a> 
                   </div>
-                    <div classname="">
+                    <div classname="d-flex flex-column">
                    
-                               {comment && comment.user._id === user._id 
+                              <div>
+                              {comment && comment.user._id === user._id 
                                ?  <svg onClick={() => {
                                   console.log(comment.text);
                                   EditCommentModel() 
@@ -451,7 +452,14 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
                                   ) : (
                                     <></>
                                   )}
+                              </div>
+
                         
+                            <div className="d-flex flex-column">
+                            <span className="text-muted date-time">{dateFunction(new Date(comment.createdAt))}</span>
+                            <span className="text-muted date-time">{new Date(comment.createdAt).toLocaleTimeString()}</span>
+                            </div>
+                            
                     </div>
                   </div>
               
