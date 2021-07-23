@@ -14,6 +14,7 @@ const GetPosts = (props) => {
   const [editPost, setEditPost] = useState("");
   const [editPostImg, setEditPostImg] = useState("");
   const [delPost, setDelPost] = useState("");
+  const [mode, setMode] = useState(props.back);
 
   //funtion to toggle quickread
   function showQuickRead() {
@@ -53,8 +54,11 @@ const GetPosts = (props) => {
   };
 
   useEffect(() => {
+    props.back === false ? setMode(false) : setMode(true);
+    console.log("MODE",mode);
     getData();
-  },[props.newPost, editPost, editPostImg, delPost])
+    console.log("props.back", props.back);
+  },[props.newPost, editPost, editPostImg, delPost, props.back, mode])
 
   useEffect(() => {
     console.log("hello");
@@ -66,7 +70,8 @@ const GetPosts = (props) => {
 
   return (
     <>
-      <Button type="button" onClick={showQuickRead}>
+    <hr style={{borderColor: mode === false ?  "lightgrey" : "white"}}  className="mt-3"></hr>
+      <Button style={{color: mode === false ?  "grey" : "white"}} type="button" onClick={showQuickRead}>
         {" "}
         Quick Read{" "}
       </Button>
@@ -106,14 +111,15 @@ const GetPosts = (props) => {
       )}
 
       <div>
-        <div id="hr_divider">
-          <hr class="horizontal" />
+        <hr style={{borderColor: mode === false ?  "lightgrey" : "white"}} className="mb-3"></hr>
+        {/* <div id="hr_divider">
+          <hr class="" />
           <span className="text-muted align-baseline">Sort by:</span>
           <DropdownButton className="btn-sm">
             <Dropdown.Item eventKey="1">Top</Dropdown.Item>
             <Dropdown.Item eventKey="2">Recent</Dropdown.Item>
           </DropdownButton>
-        </div>
+        </div> */}
         {props.isLoading === true ? (
           <MyLoader />
         ) : (

@@ -8,7 +8,7 @@ class SearchDropDown extends React.Component {
     state = {  }
     render() { 
         return (
-            <div className="dropdown ml-2" >
+            <div className="dropdown-search ml-2" >
             <div id="myDropdown" className="dropdown-content " >
               {this.props.profiles.map((profile) => 
               

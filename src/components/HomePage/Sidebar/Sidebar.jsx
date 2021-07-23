@@ -125,14 +125,14 @@ class Sidebar extends Component {
                 <ArrowRight />
               </div>
             </Card>
-            <Card className="people pt-2 ">
-              <div className="ml-2 my-2 pl-2">
+            <Card className="pt-2 mt-3">
+              <div className="ml-2 my-2">
                 <div className="text-center">
-                  <span className="add-personal-txt">
+                  <span className="add-personal-txt text-center">
                     Get the latest jobs and Industry news
                   </span>
                 </div>
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center py-3">
                   <Image
                     className="profile-img mt-1 w-25"
                     src="https://static.thenounproject.com/png/17241-200.png"
@@ -149,12 +149,13 @@ class Sidebar extends Component {
                   ></Image>
                 </div>
                 <div className="my-2 text-center d-flex">
-                  <span className="add-personal-txt px-5">
+                  <span className="add-personal-txt px-2">
                     Hello User, Explore relevant opportunities with Posta
                     Italiane
                   </span>
                 </div>
                 <Button
+                id="adv-button"
                   className="rounded-pill btn-sm adv-button"
                   variant="outline-primary"
                 >

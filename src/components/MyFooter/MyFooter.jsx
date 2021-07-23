@@ -12,8 +12,8 @@ const MyFooter = () => {
         <Row className="footerLogo">
           <img src={LinkedInLogo} />
         </Row>
-        <Row className="footer liItems">
-          <Col xs={2}>
+        <Row className="footer liItems justify-content-center">
+          <Col  sm={3}>
             <ul className="liItems">
               <li>ABout</li>
               <li>Community Guidelines</li>
@@ -22,7 +22,7 @@ const MyFooter = () => {
               <li>Safety Center</li>
             </ul>
           </Col>
-          <Col xs={2}>
+          <Col  sm={2}>
             <ul className="liItems">
               <li>Accessibility</li>
               <li>Careers</li>
@@ -30,7 +30,7 @@ const MyFooter = () => {
               <li>Mobile</li>
             </ul>
           </Col>
-          <Col xs={2}>
+          <Col  sm={2}>
             <ul className="liItems">
               <li>Talent Solutions</li>
               <li>Marketing Solutions</li>
@@ -38,7 +38,7 @@ const MyFooter = () => {
               <li>Small Business</li>
             </ul>
           </Col>
-          <Col xs={2}>
+          <Col  sm={3}>
             <ul className="liItems">
               <li>
                 <li-icon>
@@ -89,10 +89,9 @@ const MyFooter = () => {
               <p className="footerP">Go to your Settings.</p>
             </ul>
           </Col>
-          <Col xs={4}>
-            <div>
-              <label>Select Language</label>
-              <DropdownButton id="dropdown-item-button" title="Dropdown button">
+          <Col  sm={2}>
+            <div >
+              <DropdownButton  id="dropdown-item-button" title="Select Language">
                 <Dropdown.Item as="option">English</Dropdown.Item>
                 <Dropdown.Item as="button">Estonian</Dropdown.Item>
                 <Dropdown.Item as="button">Indian</Dropdown.Item>

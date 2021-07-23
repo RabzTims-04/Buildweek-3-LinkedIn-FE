@@ -76,7 +76,7 @@ export default class HomePage extends Component {
               {this.state.isLoading === true ? (
                 <MyLoader />
               ) : (
-                <GetPosts newPost={this.state.updatePost} user={user} isLoading={isLoading} />
+                <GetPosts newPost={this.state.updatePost} back={this.state.back} user={user} isLoading={isLoading} />
               )}
             </Col>
             <Col lg={3} className=' d-flex flex-column'>

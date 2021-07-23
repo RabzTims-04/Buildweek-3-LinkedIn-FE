@@ -93,10 +93,10 @@
 .add-personal-txt {
   color: grey;
   font-size: 80%;
-  /* text-align: center; */
+  text-align: center;
 }
 
-.adv-button {
+#adv-button {
   margin-left: 35%;
   margin-bottom: 5%;
 }
