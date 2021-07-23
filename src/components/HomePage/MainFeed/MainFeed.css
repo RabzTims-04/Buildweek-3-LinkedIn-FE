@@ -202,3 +202,7 @@
   background-color: rgb(227, 227, 255);
   border-radius: 20px;
 }
+
+.date-time{
+  font-size: x-small!important;
+}
