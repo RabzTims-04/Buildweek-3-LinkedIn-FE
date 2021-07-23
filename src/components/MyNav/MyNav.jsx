@@ -1,7 +1,9 @@
 import { Component } from "react";
+import SearchDropDown from "./SearchResults/DropDown.jsx";
 import React from "react";
 
 import "./MyNav.css";
+
 import {
   HouseDoorFill,
   PeopleFill,
@@ -11,10 +13,15 @@ import {
   Search,
   Grid3x3GapFill,
 } from "react-bootstrap-icons";
+
 import { Avatar } from "@material-ui/core";
+
 import myPic from "../MyNav/myPic.jpg";
+
 import "./MyNavOptions.css";
+
 import linkedin from "./linkedin.png";
+
 import { Link, withRouter } from "react-router-dom";
 
 // import MyNavOptions from "./MyNavOptions";
@@ -22,21 +29,82 @@ import { Link, withRouter } from "react-router-dom";
 import { InputGroup, Form, FormControl } from "react-bootstrap";
 
 class MyNav extends React.Component {
+  container = React.createRef();
+  state ={
+    query: "",
+    profiles: [],
+    dropOpen: false,
+  }
+
+  fetchProfiles = async () =>{
+  try{
+      let request = await fetch(`${process.env.REACT_APP_BACKEND_URL}/profile?=${this.state.query}}`)
+      let response = await request.json()
+      let filtered = response.filter(doc=>doc.name.toLowerCase().includes(this.state.query.toLowerCase()))
+
+        console.log(filtered)
+      
+        this.setState({profiles: [...filtered]})
+        console.log(this.state.profiles)
+        console.log(this.state.profiles.length)
+
+    }catch(e){
+      console.error(`We have a problem ${e}`)
+    }
+  }
+
+  handleSearchQuery(e){
+    let query = e.target.value;
+    console.log(query)
+    if(query.length > 2){
+        this.setState({query: e.target.value})
+          this.fetchProfiles() 
+      }
+    }
+
+    showDropDown(){
+      this.setState({dropOpen: !this.state.dropOpen})
+    }
+
+    handleClickOutside = (event) => {
+      if (
+        this.container.current &&
+        !this.container.current.contains(event.target)
+      ) {
+        this.setState({
+          dropOpen: false,
+        });
+      }
+    };
+  
+  componentDidMount= async() =>{
+    document.addEventListener("mousedown", this.handleClickOutside);
+    this.fetchProfiles()
+  }
+  // componentDidupdate = () =>{
+  //   if(this.state.query > 2){
+  //     this.fetchProfiles()
+  //   }
+  // }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
   render() {
     return (
       <div className="header">
         <div className="headerLeft">
           <img src={linkedin} alt="logo" />
-          <div className="headerSearch">
-            <Search />
-
+          <div className="headerSearch" style={{position:"relative"}}>
+            {/* <Search /> */}
             <Form
               className="mt-2"
               // onSubmit={() =>
               // this.props.history.push(`/profile/${this.props.query}`)
               // }
             >
-              <InputGroup>
+              <InputGroup style={{position:"relative"}}  ref={this.container}>
                 {/* <InputGroup.Prepend>
                   <InputGroup.Text>
                     <i id="search-icon" class="bi bi-search"></i>
@@ -45,12 +113,20 @@ class MyNav extends React.Component {
                 <FormControl
                   type="text"
                   id="search"
+                  autoComplete="off"
                   // placeholder={this.props.user.id}
                   // value={this.props.user.id}
-                  onChange={this.handleChangeQuery}
+                 onChange={(e)=> this.handleSearchQuery(e)}
+                 onClick={(e)=>this.showDropDown(e)}
+                
                 />
+                 {this.state.dropOpen && <SearchDropDown profiles={this.state.profiles}/>}
               </InputGroup>
+              
+  
+               {/* {this.state.profiles.length !== 0 && <searchDropDown profiles={this.state.profiles} /> } */}
             </Form>
+          
           </div>
         </div>
         <div className="headerRight">
