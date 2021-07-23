@@ -38,7 +38,7 @@ class MyNav extends React.Component {
 
   fetchProfiles = async () =>{
   try{
-      let request = await fetch(`${process.env.REACT_APP_BACKEND_URL}profile?=${this.state.query}}`)
+      let request = await fetch(`${process.env.REACT_APP_BACKEND_URL}/profile?=${this.state.query}}`)
       let response = await request.json()
       let filtered = response.filter(doc=>doc.name.toLowerCase().includes(this.state.query.toLowerCase()))
 

@@ -251,7 +251,7 @@ const MainFeed = ({post, user, editPost, editPostImg, postDelete}) => {
     }else if(dateVal.getDate() === today.getDate() - 1){
       return "Yesterday"
     }else{
-      return dateVal.getDate().toLocaleDateString()
+      return dateVal.getDate()
     }
   }
 
